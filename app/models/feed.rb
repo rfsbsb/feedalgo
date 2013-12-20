@@ -8,11 +8,11 @@ class Feed < ActiveRecord::Base
 
   def self.import_success (url, import_feed)
     feed = Feed.find_or_initialize_by_url(url)
-    if feed.new_object?
+    if feed.new_record?
       feed.title = import_feed.title
       feed.save
-      FeedEntry.import(import_feed)
     end
+    FeedEntry.import(import_feed)
   end
 
 end

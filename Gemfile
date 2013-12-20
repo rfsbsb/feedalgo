@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'jquery-rails'
 gem 'nokogiri'
 gem 'mysql2'
+gem 'sanitize'
 
 group :assets do
   gem 'jquery-ui-rails'
