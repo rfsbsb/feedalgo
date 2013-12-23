@@ -1,24 +1,24 @@
 class Crawler
   def run()
     feeds = Feed.pluck(:url)
-    fetch(feeds)
+    fetch_and_persist(feeds)
   end
 
-  def fetch(feeds)
-    Feedzirra::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| import(url, feed)})
+  def fetch_and_persist(feeds)
+    Feedzirra::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| persist(url, feed)})
   end
 
-  def import(url, import_feed)
+  def persist(url, import_feed)
     feed = Feed.find_or_initialize_by_url(url)
     if feed.new_record?
       feed.title = import_feed.title
       feed.save
     end
-    import_entry(import_feed)
+    persist_entry(import_feed.entries, feed)
   end
 
-  def import_entry(feed)
-    feed.entries.each do |e|
+  def persist_entry(entries, feed)
+    entries.each do |e|
       entry = FeedEntry.find_or_initialize_by_url(e.url)
       if entry.new_record?
         body = nil
@@ -30,6 +30,7 @@ class Crawler
 
         entry.body = parse_body(body, feed)
         entry.title  = e.title
+        entry.feed_id = feed.id
         entry.body = body
         entry.author = e.author if e.author
         entry.save
