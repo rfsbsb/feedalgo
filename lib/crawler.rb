@@ -1,10 +1,8 @@
 class Crawler
   def run()
-    old = Time.now
     feeds = Feed.pluck(:url)
     fetch_and_persist(feeds)
-
-    return Time.now - old
+    return
   end
 
   def fetch_and_persist(feeds)
