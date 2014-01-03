@@ -1,7 +1,10 @@
 class Crawler
   def run()
+    old = Time.now
     feeds = Feed.pluck(:url)
     fetch_and_persist(feeds)
+
+    return Time.now - old
   end
 
   def fetch_and_persist(feeds)
@@ -14,26 +17,35 @@ class Crawler
       feed.title = import_feed.title
       feed.save
     end
-    persist_entry(import_feed.entries, feed)
+    persist_entries(import_feed.entries, feed)
   end
 
-  def persist_entry(entries, feed)
+  def persist_entries(entries, feed)
+    urls = []
     entries.each do |e|
-      entry = FeedEntry.find_or_initialize_by_url(e.url)
-      if entry.new_record?
-        body = nil
-        if e.respond_to?(:content) && !e.content.nil?
-          body = e.content
-        elsif e.respond_to?(:summary) && !e.summary.nil?
-          body = e.summary
-        end
+      urls.push(e.url)
+    end
+    urls_db = FeedEntry.where(feed_id: feed.id).pluck(:url)
+    new_urls = urls - urls_db
 
-        entry.body = parse_body(body, feed)
-        entry.title  = e.title
-        entry.feed_id = feed.id
-        entry.body = body
-        entry.author = e.author if e.author
-        entry.save
+    entries.each do |e|
+      if new_urls.include?(e.url)
+        entry = FeedEntry.new
+        if entry.new_record?
+          body = nil
+          if e.respond_to?(:content) && !e.content.nil?
+            body = e.content
+          elsif e.respond_to?(:summary) && !e.summary.nil?
+            body = e.summary
+          end
+          entry.url = e.url
+          entry.body = parse_body(body, feed)
+          entry.title  = e.title
+          entry.feed_id = feed.id
+          entry.body = body
+          entry.author = e.author if e.author
+          entry.save
+        end
       end
     end
   end
@@ -53,7 +65,7 @@ class Crawler
         else
           img['data-original'] = img['src']
         end
-        # Adding preloading data
+        # Adding preloading data and classess
         img['src'] = "/assets/preloader.gif"
         img['class'] = "img-polaroid img-rounded"
       end
