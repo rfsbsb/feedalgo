@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'nokogiri'
 gem 'mysql2'
 gem 'sanitize'
+gem 'activerecord-import'
 
 group :assets do
   gem 'jquery-ui-rails'

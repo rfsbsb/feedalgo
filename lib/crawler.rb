@@ -28,26 +28,26 @@ class Crawler
     urls_db = FeedEntry.where(feed_id: feed.id).pluck(:url)
     new_urls = urls - urls_db
 
+    entry_list = []
     entries.each do |e|
       if new_urls.include?(e.url)
         entry = FeedEntry.new
-        if entry.new_record?
-          body = nil
-          if e.respond_to?(:content) && !e.content.nil?
-            body = e.content
-          elsif e.respond_to?(:summary) && !e.summary.nil?
-            body = e.summary
-          end
-          entry.url = e.url
-          entry.body = parse_body(body, feed)
-          entry.title  = e.title
-          entry.feed_id = feed.id
-          entry.body = body
-          entry.author = e.author if e.author
-          entry.save
+        body = nil
+        if e.respond_to?(:content) && !e.content.nil?
+          body = e.content
+        elsif e.respond_to?(:summary) && !e.summary.nil?
+          body = e.summary
         end
+        entry.url = e.url
+        entry.body = parse_body(body, feed)
+        entry.title  = e.title
+        entry.feed_id = feed.id
+        entry.body = body
+        entry.author = e.author if e.author
+        entry_list.push(entry)
       end
     end
+    FeedEntry.import(entry_list)
   end
 
   def parse_body(body, feed)
