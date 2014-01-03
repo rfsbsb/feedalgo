@@ -42,7 +42,6 @@ class Crawler
         entry.body = parse_body(body, feed)
         entry.title  = e.title
         entry.feed_id = feed.id
-        entry.body = body
         entry.author = e.author if e.author
         entry_list.push(entry)
       end
