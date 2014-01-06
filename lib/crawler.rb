@@ -1,5 +1,5 @@
 class Crawler
-  def run()
+  def update_all()
     feeds = Feed.pluck(:url)
     fetch_and_persist(feeds)
     return
