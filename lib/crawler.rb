@@ -1,5 +1,7 @@
 class Crawler
-  def update_all()
+
+
+  def update_all
     feeds = Feed.pluck(:url)
     fetch_and_persist(feeds)
     return
@@ -10,11 +12,7 @@ class Crawler
   end
 
   def persist(url, import_feed)
-    feed = Feed.find_or_initialize_by_url(url)
-    if feed.new_record?
-      feed.title = import_feed.title
-      feed.save
-    end
+    feed = Feed.find_by_url(url)
     persist_entries(import_feed.entries, feed)
   end
 
@@ -23,14 +21,17 @@ class Crawler
     entries.each do |e|
       urls.push(e.url)
     end
+    # We get the latest URLs to compare to the new ones.
     urls_db = FeedEntry.where(feed_id: feed.id).pluck(:url)
     new_urls = urls - urls_db
 
     entry_list = []
+    # We only insert new URLs, avoiding duplications
     entries.each do |e|
       if new_urls.include?(e.url)
         entry = FeedEntry.new
         body = nil
+        # Not all feeds use bodies, some use only summaries and few use none
         if e.respond_to?(:content) && !e.content.nil?
           body = e.content
         elsif e.respond_to?(:summary) && !e.summary.nil?
@@ -44,6 +45,7 @@ class Crawler
         entry_list.push(entry)
       end
     end
+    # Instead of doing one insert at time, we do it all at once, for performance
     FeedEntry.import(entry_list)
   end
 
