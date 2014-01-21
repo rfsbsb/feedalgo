@@ -3,33 +3,24 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Feedalgo" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Feedalgo a free RSS reader" %>">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Feedalgo a open source RSS reader" %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <header id="main-header" class="navbar navbar-fixed-top navbar-inverse">
-      <nav class="navbar-inner">
-        <div class="container-fluid">
-          <%= render 'layouts/navigation' %>
-        </div>
-      </nav>
+    <header id="main-header" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <%= render 'layouts/navigation' %>
+      </div>
     </header>
-    <div id="main" role="main">
-      <div id="container">
-        <div class="content">
-          <div id="body-row" class="row-fluid">
-            <div class="span12">
-              <%= render 'layouts/messages' %>
-              <%= yield %>
-            </div>
-          </div>
-          <footer>
-          </footer>
+
+    <section class="container">
+        <div class="row">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
         </div>
-      </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
+    </section>
   </body>
 </html>
