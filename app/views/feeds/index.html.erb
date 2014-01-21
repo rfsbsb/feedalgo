@@ -1,0 +1,21 @@
+<h1>Listing feeds</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+      <th colspan="2"></th>
+    </tr>
+
+  <% @feeds.each do |feed| %>
+    <tr>
+      <td><%= feed.title %></td>
+      <td><%= feed.url %></td>
+      <td>
+        <%= link_to 'Edit', edit_feed_path(feed), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+</div>
