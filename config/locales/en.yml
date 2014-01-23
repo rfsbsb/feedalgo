@@ -2,3 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  "Listing feeds": "Listing feeds"
+  "Are you sure?": "Are you sure?"
+  "New feed": "New feed"
+  title: "Title"
+  url: "URL"
+  edit: "Edit"
+  destroy: "Destroy"

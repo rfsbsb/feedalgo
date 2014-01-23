@@ -22,6 +22,7 @@ group :assets do
   gem 'bootstrap-sass', '~> 3.0.3.0'
   gem 'bootstrap-editable-rails'
   gem 'compass-rails'
+  gem 'i18n-js'
 end
 
 group :development do
