@@ -9,3 +9,6 @@ en:
   url: "URL"
   edit: "Edit"
   destroy: "Destroy"
+  "Cancel": "Cancel"
+  areyousure: "Are you sure you want to delete this item?"
+  yesimsure: "Yes, I'm sure!"

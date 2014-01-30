@@ -3,6 +3,8 @@
 $.rails.allowAction = (element) ->
   # The message is something like "Are you sure?"
   message = element.data('confirm')
+  confirm = I18n.t('areyousure')
+  cancel  = I18n.t("Cancel")
   # If there's no message, there's no data-confirm attribute,
   # which means there's nothing to confirm
   return true unless message
@@ -15,7 +17,7 @@ $.rails.allowAction = (element) ->
     # We want a button
     .addClass('btn').addClass('btn-danger')
     # We want it to sound confirmy
-    .html(I18n.t("Are you sure?"))
+    .html(I18n.t("yesimsure"))
 
   # Create the modal box with the message
   modal_html = """
@@ -27,11 +29,10 @@ $.rails.allowAction = (element) ->
                    <h3>#{message}</h3>
                  </div>
                  <div class="modal-body">
-                   <p>Are you sure you want to do this?</p>
-                   <p>There's no turning back.</p>
+                   <p>#{confirm}</p>
                  </div>
                  <div class="modal-footer">
-                   <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                   <button class="btn" data-dismiss="modal" aria-hidden="true">#{cancel}</button>
                  </div>
                </div>
               </div>

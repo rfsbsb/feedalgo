@@ -16,10 +16,11 @@ gem 'activerecord-import'
 
 group :assets do
   gem 'jquery-ui-rails'
-  gem 'sass-rails'
+  gem 'sass-rails', '>= 3.2'
+  gem 'bootstrap-sass', '>= 3.1.0'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'bootstrap-sass', '~> 3.0.3.0'
+
   gem 'bootstrap-editable-rails'
   gem 'compass-rails'
   gem 'i18n-js'

@@ -4,13 +4,15 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
+    <%= f.input :email, :required => true, :autofocus => true, :wrapper => :bootstrap3 %>
+    <%= f.input :password, :required => true, :wrapper => :bootstrap3 %>
+    <%= f.input :password_confirmation, :required => true, :wrapper => :bootstrap3 %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up", :class => "btn-primary" %>
+  <div class="form-group">
+    <div class="col-sm-offset-2">
+      <%= f.button :submit, "Sign up", :class => "btn-success" %>
+    </div>
   </div>
 <% end %>
 
