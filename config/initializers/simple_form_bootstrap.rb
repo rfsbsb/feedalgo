@@ -27,7 +27,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper tag: 'div', class: 'col-sm-10' do |ba|
+    b.wrapper tag: 'div', class: 'col-xs-10' do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
@@ -38,7 +38,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper tag: 'div', class: 'col-sm-10' do |input|
+    b.wrapper tag: 'div', class: 'col-xs-10' do |input|
       input.wrapper tag: 'div', class: 'input-group' do |prepend|
         prepend.use :input
       end
@@ -51,7 +51,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper tag: 'div', class: 'col-sm-10' do |input|
+    b.wrapper tag: 'div', class: 'col-xs-10' do |input|
       input.wrapper tag: 'div', class: 'input-group' do |append|
         append.use :input
       end
@@ -65,7 +65,7 @@ SimpleForm.setup do |config|
     b.use :html5
 
     # Form components
-    b.wrapper tag: :div, class: 'col-sm-10 col-sm-offset-2' do |ba|
+    b.wrapper tag: :div, class: 'col-xs-10 col-xs-offset-2' do |ba|
       ba.wrapper tag: :div, class: 'checkbox' do |bb|
         bb.wrapper tag: :label do |input|
           input.use :input
@@ -82,7 +82,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
+    b.wrapper tag: 'div', class: 'col-xs-9' do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
