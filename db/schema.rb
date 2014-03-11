@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20131223132924) do
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "url"
+    t.text     "url"
     t.string   "author"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20131223132924) do
   end
 
   add_index "feed_entries", ["feed_id"], :name => "index_feed_entries_on_feed_id"
-  add_index "feed_entries", ["url"], :name => "index_feed_entries_on_url"
 
   create_table "feed_entry_users", :force => true do |t|
     t.integer "feed_id"

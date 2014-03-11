@@ -2,19 +2,26 @@
 @import "bootstrap/theme";
 body {
   padding-top: $navbar-height;
+  overflow: hidden;
 }
 
-#main {
-  margin-top: 20px;
+.scrollable {
+  overflow-y: auto;
+  max-height: 600px;
 }
 
-.fixed-sidebar {
-  overflow: auto;
-  margin-top: -20px;
+#sidebar {
+  background-color: $gray-lighter;
   padding-top: 20px;
+}
+
+#reader {
+  padding-top: 20px;
+}
+
+.inner-sidebar {
   padding-left: 0;
   list-style: none;
-  position: fixed;
 
   .title {
     display: inline-block;
@@ -26,5 +33,5 @@ body {
 
 
   // TODO put it on a Javascript to be automatically calculated
-  height: 600px;
+  height: 680px;
 }

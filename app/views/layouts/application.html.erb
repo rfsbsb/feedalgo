@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= content_for?(:title) ? yield(:title) : "Feedalgo | An open source RSS reader"  %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "An open source RSS reader" %>">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -11,23 +18,23 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
     <header id="main-header" class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
+      <div class="container-fluid">
         <%= render 'layouts/navigation' %>
       </div>
     </header>
 
-    <section id="main" class="container">
+    <section id="main" class="container-fluid">
         <div class="row">
           <% if signed_in? %>
-            <div class="col-xs-3">
+            <div id="sidebar" class="scrollable col-xs-2">
               <%= render 'layouts/sidebar' %>
             </div>
-            <div class="col-xs-9">
+            <div id="reader" class="scrollable col-xs-10">
               <%= render 'layouts/messages' %>
               <%= yield %>
             </div>
           <% else %>
-            <div class="col-xs-12">
+            <div id="reader" class="scrollable col-xs-12">
               <%= render 'layouts/messages' %>
               <%= yield %>
             </div>

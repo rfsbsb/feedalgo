@@ -1,5 +1,5 @@
-<ul class="fixed-sidebar col-xs-2">
+<ul class="inner-sidebar">
   <% @feeds.each do |feed|%>
-    <li class="item"><span class="title"><%= feed.title %></span></li>
+    <li class="item"><a class="title"><%= feed.title %></a></li>
   <% end %>
 </ul>

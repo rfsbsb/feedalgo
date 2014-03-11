@@ -17,10 +17,17 @@ class Crawler
   end
 
   def persist_entries(entries, feed)
+
+    # Getting the base URL of the site
+    # It's used for better link creation when parsing body
+    uri = URI.parse(feed.url)
+    base_url = "#{uri.scheme}://#{uri.host}"
+
     urls = []
     entries.each do |e|
       urls.push(e.url)
     end
+
     # We get the latest URLs to compare to the new ones.
     urls_db = FeedEntry.where(feed_id: feed.id).pluck(:url)
     new_urls = urls - urls_db
@@ -38,7 +45,7 @@ class Crawler
           body = e.summary
         end
         entry.url = e.url
-        entry.body = parse_body(body, feed)
+        entry.body = parse_body(body, base_url)
         entry.title  = e.title
         entry.feed_id = feed.id
         entry.author = e.author if e.author
@@ -49,18 +56,15 @@ class Crawler
     FeedEntry.import(entry_list)
   end
 
-  def parse_body(body, feed)
+  def parse_body(body, base_url)
     if body
-      # Getting the base URL of the site
-      uri = URI.parse(feed.url)
-      url = "#{uri.scheme}://#{uri.host}"
       body = Sanitize.clean(body, Sanitize::Config::RELAXED)
       doc = Nokogiri::HTML(body)
       # Image parsing
       doc.search("img").each do |img|
         # Turning the image path absolute
         if !img['src'].nil? && !img['src'].match(/^http/)
-          img['data-original'] = url + img['src']
+          img['data-original'] = base_url + img['src']
         else
           img['data-original'] = img['src']
         end
@@ -78,7 +82,7 @@ class Crawler
       doc.search("a").each do |link|
         # Turning the link path absolute and opening in a new window
         if !link['href'].nil? && !link['href'].match(/^http/)
-          link['href'] = url + link['href']
+          link['href'] = base_url + link['href']
         end
         link['target'] = "_blank"
       end
