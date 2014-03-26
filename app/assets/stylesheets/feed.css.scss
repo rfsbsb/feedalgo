@@ -1,0 +1,151 @@
+@import "bootstrap/variables";
+@import "compass";
+
+iframe {
+  display: none;
+}
+
+.small-folder {
+  padding-top: 3px;
+  cursor: pointer;
+}
+
+.favicon {
+  margin-right: 5px;
+}
+
+.black {
+  color: lighten($link-color, 10%);
+}
+
+.yellow {
+  color: #FFC641;
+}
+
+#interactive-menu {
+  margin: 0;
+}
+
+
+#feed-read {
+  .header {
+    h2 {
+      @include adjust-font-size-to($base-font-size*1.5);
+      padding: 0;
+      margin: 0;
+    }
+    h2 .edit-title {
+      display: none;
+    }
+    h2:hover .edit-title {
+      display: inline;
+    }
+    .btn-toolbar {
+      margin-top: 0;
+    }
+    small {
+      cursor: pointer;
+    }
+  }
+}
+
+#reader {
+  border: 1px solid darken($btn-primary-color, 20%);
+
+
+  .feed_entry {
+    position: relative;
+    border-bottom: 1px solid darken($btn-primary-color, 20%);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    .ui-accordion-header-active {
+      border-left: 3px solid $btn-primary-bg;
+    }
+    .expanded {
+      border-left: 1px solid $btn-primary-bg;
+    }
+    .feed_bar {
+      font-size: 90%;
+      background-color: #EEEEEE;
+      cursor: pointer;
+      height: 27px;
+      line-height: 27px;
+      overflow: hidden;
+      outline: none;
+      .feed_icons {
+        z-index: 10;
+        padding: 0 5px;
+        float: left;
+        color: #555555;
+      }
+      .feed_name {
+        width: 11em;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 1em 0 0;
+      }
+      .small_title {
+        color: #000;
+        margin-left: 1em;
+      }
+      .trimed_body {
+        overflow: hidden;
+        color: #777;
+      }
+      .date {
+        float: right;
+        line-height: 27px;
+        margin: 0;
+        padding: 0 10px 0 10px;
+        width: auto;
+      }
+    }
+
+    .unread {
+      background-color: #FFF;
+      font-weight: bold;
+    }
+
+    .full_post {
+      display: none;
+      border-left: 3px solid $btn-primary-bg;
+      font-size: 90%;
+      .title {
+        @include adjust-font-size-to($base-font-size*1.5);
+        margin: 0 0 0 10px;;
+      }
+      .authorship {
+        color: #666;
+        margin-left: 10px;
+        .origin {
+
+        }
+        .author {
+
+        }
+      }
+      .body {
+        margin-left: 10px;
+        h1 {
+          @include adjust-font-size-to($base-font-size*2);
+        }
+
+        h2 {
+          @include adjust-font-size-to($base-font-size*1.8);
+        }
+
+        h3 {
+          @include adjust-font-size-to($base-font-size*1.4);
+        }
+
+      }
+    }
+
+    .actions-bar {
+      background-color: #FAFAFA;
+      padding: 5px 10px;
+    }
+  }
+}

@@ -1,11 +1,15 @@
 <ul class="inner-sidebar">
-  <% @folders.each do |folder|%>
-    <li class="folder"><%= folder.name %>
+  <%= content_tag_for( :li, @folders) do |folder| %>
+    <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-folder-" + (folder.state ? "open" : "close")) %>
+    <%= link_to folder.name, {:controller => "/pages", :action => "show_all_folder", :id => folder, :remote => true} %>
       <ul>
         <% folder.feeds.each do |feed|%>
-          <li class="item"><%= link_to feed.title, reader_feed_path(CGI.escape(feed.url)), :remote => true %></li>
+          <li class="item" id="feed_<%= feed.id%>"><%= render "layouts/sidebar_feed", :feed => feed %></li>
         <% end %>
       </ul>
     </li>
+  <% end %>
+  <% @feeds.each do |feed|%>
+    <li class="item" id="feed_<%= feed.id%>"><%= render "layouts/sidebar_feed", :feed => feed %></li>
   <% end %>
 </ul>

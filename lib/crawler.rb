@@ -49,11 +49,12 @@ class Crawler
         entry.title  = e.title
         entry.feed_id = feed.id
         entry.author = e.author if e.author
-        entry_list.push(entry)
+        #entry_list.push(entry)
+        entry.save
       end
     end
     # Instead of doing one insert at time, we do it all at once, for performance
-    FeedEntry.import(entry_list)
+    # FeedEntry.import(entry_list)
   end
 
   def parse_body(body, base_url)

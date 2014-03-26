@@ -1,7 +1,27 @@
 <% entries.each do |entry| %>
 
-  <%= content_tag(:div, entry, :id => "feed_entry_XXXX", :class=> "feed_entry") do %>
-    <%= entry.title %>
+  <%= content_tag(:div, entry, :id => "feed_entry_#{entry.feed_entry_users.first.id}", :class=> "feed_entry") do %>
+    <div id="<%= entry.feed_entry_users.first.id %>" class="feed_bar <%= "unread" if !entry.feed_entry_users.first.read? %>">
+      <span class="date"><%= entry.created_at.today? ? entry.created_at.strftime("%H:%M:%S") : entry.created_at.strftime("%d/%m/%y")  %> </span>
+      <span class="feed_icons"><%= render "icons", object: entry.feed_entry_users.first %></span>
+      <span class="feed_name"><%= entry.feed.title %></span>
+      <span class="small_title"><%= entry.title.html_safe unless entry.title.nil? %></span>
+      <span class="trimed_body"> - <%= raw truncate(strip_tags(entry.body.html_safe), :length => 200) if entry.body %></span>
+    </div>
+    <div class="full_post">
+      <h2 class="title"><%= raw link_to entry.title.html_safe, entry.url, :target => "_blank" unless entry.title.nil? %></h2>
+      <div class="authorship">
+        From <span class="origin"><%= link_to entry.feed.title, entry.url %></span>
+        <% if entry.author %>by <span class="author"><%= entry.author %></span><% end %>
+      </div>
+      <div class="body">
+        <%= raw sanitize entry.body, :tags => %w(table tr td th caption pre code ul ol li p a img strong em i b h1 h2 h3 h4 iframe hr br), :attributes => %w(id width height class src href data-original target alt title) %>
+      </div>
+      <div class="actions-bar">
+        <span class="feed_icons"><%= render "icons", object: entry.feed_entry_users.first %></span>
+        <span class="mark-read"><%= link_to entry.feed_entry_users.first.read? ? "Mark As Unread" : "Mark As Read", :controller => '/pages', :action => 'mark_as_read', :id => entry.feed_entry_users.first.id, :remote => true %></span>
+      </div>
+    </div>
   <% end %>
 
 <% end %>

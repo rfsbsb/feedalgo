@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :folders
   has_many :feed_entry_users
+  has_many :feed_entries, :through => :feed_entry_users
   has_many :feed_users
   has_many :feeds, :through => :feed_users
 

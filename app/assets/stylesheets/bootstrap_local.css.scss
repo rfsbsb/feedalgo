@@ -1,5 +1,9 @@
 @import "bootstrap";
 @import "bootstrap/theme";
+@import "bootstrap-editable";
+@import "bootstrap/variables";
+@import "compass";
+@import "mixins";
 body {
   padding-top: $navbar-height;
   overflow: hidden;
@@ -10,9 +14,26 @@ body {
   max-height: 600px;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 #sidebar {
   background-color: $gray-lighter;
   padding-top: 20px;
+  @include box-sizing;
+  li {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px 19px;
+    li {
+      padding-right: 0;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 #reader {
@@ -34,4 +55,16 @@ body {
 
   // TODO put it on a Javascript to be automatically calculated
   height: 680px;
+}
+
+
+
+abbr[title] {
+  border-bottom: none;
+  font-weight: bold;
+}
+
+
+[class^="icon-"], [class*=" icon-"] {
+  background-image:none;
 }
