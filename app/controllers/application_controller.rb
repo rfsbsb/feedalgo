@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :fetch_feeds_sidebar
 
   def fetch_feeds_sidebar
-    @feeds = Feed.all
+    @folders = current_user.folders.all
   end
 end

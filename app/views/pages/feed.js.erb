@@ -1,0 +1,2 @@
+$('#reader').empty();
+$('#reader').append('<%= escape_javascript render "feed_entries", :entries => @entries %>');

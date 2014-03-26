@@ -7,4 +7,9 @@ class User < ActiveRecord::Base
   attr_accessible :role_ids, :as => :admin
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
+  has_many :folders
+  has_many :feed_entry_users
+  has_many :feed_users
+  has_many :feeds, :through => :feed_users
+
 end

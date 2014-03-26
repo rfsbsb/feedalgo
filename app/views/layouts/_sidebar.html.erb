@@ -1,5 +1,11 @@
 <ul class="inner-sidebar">
-  <% @feeds.each do |feed|%>
-    <li class="item"><a class="title"><%= feed.title %></a></li>
+  <% @folders.each do |folder|%>
+    <li class="folder"><%= folder.name %>
+      <ul>
+        <% folder.feeds.each do |feed|%>
+          <li class="item"><%= link_to feed.title, reader_feed_path(CGI.escape(feed.url)), :remote => true %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>

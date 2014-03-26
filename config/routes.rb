@@ -10,6 +10,8 @@ Feedalgo::Application.routes.draw do
   resources :feeds
   resources :users
 
+  match 'f/:id' => 'pages#feed', :as => :reader_feed, :constraints => { :id => /[^\/]*/ }
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

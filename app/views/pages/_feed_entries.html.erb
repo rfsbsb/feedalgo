@@ -1,0 +1,7 @@
+<% entries.each do |entry| %>
+
+  <%= content_tag(:div, entry, :id => "feed_entry_XXXX", :class=> "feed_entry") do %>
+    <%= entry.title %>
+  <% end %>
+
+<% end %>
