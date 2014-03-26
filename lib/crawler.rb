@@ -8,7 +8,7 @@ class Crawler
   end
 
   def fetch_and_persist(feeds)
-    Feedzirra::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| persist(url, feed)})
+    Feedjira::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| persist(url, feed)})
   end
 
   def persist(url, import_feed)

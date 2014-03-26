@@ -4,7 +4,7 @@ class FeedEntry < ActiveRecord::Base
   has_many :feed_entry_users
   after_save :associate_feed_entries
 
-  default_scope {includes(:feed_entry_users, :feed)}
+  default_scope {includes(:feed_entry_users, :feed).order("feed_entries.created_at DESC")}
 
   scope :unread, where("feed_entry_users.read IS NULL")
 
