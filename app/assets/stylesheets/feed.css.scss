@@ -23,13 +23,8 @@
 }
 
 
-#feed-read {
+#reader {
   .header {
-    h2 {
-      @include adjust-font-size-to($base-font-size*1.5);
-      padding: 0;
-      margin: 0;
-    }
     h2 .edit-title {
       display: none;
     }
@@ -42,13 +37,12 @@
     small {
       cursor: pointer;
     }
+    margin-bottom: $padding-large-vertical;
   }
 }
 
 #feed-container {
   border: 1px solid darken($btn-primary-color, 20%);
-
-
   .feed_entry {
     position: relative;
     border-bottom: 1px solid darken($btn-primary-color, 20%);
