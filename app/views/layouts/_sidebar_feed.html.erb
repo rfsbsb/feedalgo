@@ -1,2 +1,3 @@
 <%= content_tag(:span, image_tag(feed.favicon, :width => 16, :height => 16, :class => "favicon"), :class => "pull-left") unless feed.favicon.nil? %>
-<%= link_to (content_tag(:span, @unread[feed.id], :class=> "badge badge-info pull-right") + feed.title).html_safe, reader_feed_path(CGI.escape(feed.url)), :remote => true %>
+<%= content_tag(:span, @unread[feed.id], :class=> "badge pull-right spaced-badge") %>
+<div class="feed-name"><%= link_to feed.title.html_safe, reader_feed_path(CGI.escape(feed.url)), :remote => true %></div>

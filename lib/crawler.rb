@@ -1,6 +1,4 @@
 class Crawler
-
-
   def update_all
     feeds = Feed.pluck(:url)
     fetch_and_persist(feeds)
@@ -17,7 +15,6 @@ class Crawler
   end
 
   def persist_entries(entries, feed)
-
     # Getting the base URL of the site
     # It's used for better link creation when parsing body
     uri = URI.parse(feed.url)
@@ -49,12 +46,9 @@ class Crawler
         entry.title  = e.title
         entry.feed_id = feed.id
         entry.author = e.author if e.author
-        #entry_list.push(entry)
         entry.save
       end
     end
-    # Instead of doing one insert at time, we do it all at once, for performance
-    # FeedEntry.import(entry_list)
   end
 
   def parse_body(body, base_url)
@@ -92,5 +86,4 @@ class Crawler
       doc.xpath("//body").to_html
     end
   end
-
 end

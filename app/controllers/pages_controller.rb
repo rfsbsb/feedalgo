@@ -21,4 +21,8 @@ class PagesController < ApplicationController
   def show_all_folder
   end
 
+  def favorite
+  end
+
+
 end

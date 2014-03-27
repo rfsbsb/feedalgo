@@ -13,6 +13,8 @@ Feedalgo::Application.routes.draw do
   match 'f/:id' => 'pages#feed', :as => :reader_feed, :constraints => { :id => /[^\/]*/ }
   match 'f/mark_as_read' => 'pages#mark_as_read'
   match 'f/show_all_folder' => 'pages#show_all_folder'
+  match 'f/favorite' => 'pages#favorite'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

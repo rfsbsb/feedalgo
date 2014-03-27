@@ -3,7 +3,7 @@
   <%= content_tag(:div, entry, :id => "feed_entry_#{entry.feed_entry_users.first.id}", :class=> "feed_entry") do %>
     <div id="<%= entry.feed_entry_users.first.id %>" class="feed_bar <%= "unread" if !entry.feed_entry_users.first.read? %>">
       <span class="date"><%= entry.created_at.today? ? entry.created_at.strftime("%H:%M:%S") : entry.created_at.strftime("%d/%m/%y")  %> </span>
-      <span class="feed_icons"><%= render "icons", object: entry.feed_entry_users.first %></span>
+      <span class="feed_icons"><%= render "icons", feed: entry.feed_entry_users.first %></span>
       <span class="feed_name"><%= entry.feed.title %></span>
       <span class="small_title"><%= entry.title.html_safe unless entry.title.nil? %></span>
       <span class="trimed_body"> - <%= raw truncate(strip_tags(entry.body.html_safe), :length => 200) if entry.body %></span>
@@ -18,7 +18,7 @@
         <%= raw sanitize entry.body, :tags => %w(table tr td th caption pre code ul ol li p a img strong em i b h1 h2 h3 h4 iframe hr br), :attributes => %w(id width height class src href data-original target alt title) %>
       </div>
       <div class="actions-bar">
-        <span class="feed_icons"><%= render "icons", object: entry.feed_entry_users.first %></span>
+        <span class="feed_icons"><%= render "icons", feed: entry.feed_entry_users.first %></span>
         <span class="mark-read"><%= link_to entry.feed_entry_users.first.read? ? "Mark As Unread" : "Mark As Read", :controller => '/pages', :action => 'mark_as_read', :id => entry.feed_entry_users.first.id, :remote => true %></span>
       </div>
     </div>

@@ -25,19 +25,19 @@ a:hover {
   li {
     white-space: nowrap;
     overflow: hidden;
-    padding: 5px 19px;
+    padding: 5px 0;
     li {
-      padding-right: 0;
+      padding: 5px 0 5px 19px;
     }
+  }
+  .feed-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   ul {
     margin: 0;
     padding: 0;
   }
-}
-
-#reader {
-  padding-top: 20px;
 }
 
 .inner-sidebar {
@@ -57,14 +57,10 @@ a:hover {
   height: 680px;
 }
 
-
-
-abbr[title] {
-  border-bottom: none;
-  font-weight: bold;
-}
-
-
 [class^="icon-"], [class*=" icon-"] {
   background-image:none;
+}
+
+.spaced-badge {
+  margin-left: 10px;
 }

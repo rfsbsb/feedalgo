@@ -1,1 +1,4 @@
-<%= render "feed_entries", :entries => @entries %>
+<%= render "feed_header", :feed => @feed %>
+<div id="feed-container">
+  <%= render "feed_entries", :entries => @entries %>
+</div>
