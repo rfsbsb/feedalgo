@@ -1,0 +1,8 @@
+<% if @entry.read %>
+  $('#feed_entry_<%= @entry.id %> .feed_bar').removeClass('unread');
+  $('#feed_entry_<%= @entry.id %> .mark-read a').html('Mark As Unread');
+<% else %>
+  $('#feed_entry_<%= @entry.id %> .feed_bar').addClass('unread');
+  $('#feed_entry_<%= @entry.id %> .mark-read a').html('Mark As Read');
+<% end %>
+$('#sidebar #feed_<%= @entry.feed_id %> .badge').html('<%= @feed_count %>');

@@ -46,6 +46,7 @@ class Crawler
         entry.title  = e.title
         entry.feed_id = feed.id
         entry.author = e.author if e.author
+        entry.created_at = e.published
         entry.save
       end
     end

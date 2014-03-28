@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   def feed
     @feed = current_user.feeds.find_by_url(params[:id])
-    @entries = current_user.feed_entries.where(:feed_id => @feed).all
+    @entries = current_user.feed_entry_users.where(:feed_id => @feed).all
     respond_to do |format|
       format.js
       format.html
@@ -16,12 +16,24 @@ class PagesController < ApplicationController
   end
 
   def mark_as_read
-  end
-
-  def show_all_folder
+    @entry = current_user.feed_entry_users.find(params[:id])
+    @entry.toggle_read
+    num_feeds = current_user.feed_entry_users.where(:feed_id => @entry.feed_id).where('feed_entry_users.read = ? or feed_entry_users.read is NULL',false).count()
+    @feed_count = num_feeds <= 0 ? nil : num_feeds
+    respond_to do |format|
+      format.js
+    end
   end
 
   def favorite
+    @entry = current_user.feed_entry_users.find(params[:id])
+    @entry.toggle_favorite
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show_all_folder
   end
 
 

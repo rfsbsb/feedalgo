@@ -2,3 +2,4 @@ $('#reader').empty();
 $('#reader').append('<%= escape_javascript render "feed_header", :feed => @feed %>');
 $('#reader').append('<div id="feed-container">');
 $('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries %>');
+attachAccordion();

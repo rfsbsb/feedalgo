@@ -15,4 +15,6 @@
 //= require i18n/translations
 //= require jquery_ujs
 //= require bootstrap
+//= require jquery.ui.accordion
+//= require jquery.ui.draggable
 //= require_tree .
