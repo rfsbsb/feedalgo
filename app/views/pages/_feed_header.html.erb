@@ -5,7 +5,8 @@
         <small class="edit-title">Edit</small>
       </h2>
 
-      <span data-feed-id="<%= feed.id%>" class="feed_id"></span>
+      <span data-feed-unread-url="<%= unread_path(CGI.escape(feed.url))%>" class="feed_unread_url"></span>
+      <span data-feed-url="<%= reader_feed_path(CGI.escape(feed.url))%>" class="feed_url"></span>
     <% else %>
       <h2>
         <span id="name" data-resource="folder" data-type="text" data-url="/folders/<%= feed.id %>" data-title="Enter folder name"><%= feed.name %></span>

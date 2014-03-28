@@ -4,6 +4,8 @@ class FeedEntryUser < ActiveRecord::Base
   belongs_to :feed
   belongs_to :feed_entry
   default_scope {includes(:feed_entry, :feed).order("feed_entries.created_at DESC")}
+  scope :unread, where('feed_entry_users.read = ? OR feed_entry_users.read IS NULL',false)
+  scope :read, where('feed_entry_users.read = ? OR feed_entry_users.read IS NOT NULL', true)
 
   def toggle_read
     self.read = self.read ? 0 : 1

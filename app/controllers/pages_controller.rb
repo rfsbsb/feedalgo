@@ -36,5 +36,13 @@ class PagesController < ApplicationController
   def show_all_folder
   end
 
+  def show_unread
+    @feed = current_user.feeds.where(:url => params[:id]).first
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed).all
+    respond_to do |format|
+      format.js {render :action => :feed}
+      format.html {render :action => :feed}
+    end
+  end
 
 end

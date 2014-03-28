@@ -86,6 +86,17 @@ function setKeyboardShortcuts() {
 }
 
 $(document).ready(function() {
+
+  $("#reader").on('click', '#showAll', function(){
+    var url = $("span.feed_url").attr('data-feed-url');
+    $.get(url);
+  });
+
+  $("#reader").on('click', '#showUnread' ,function(){
+    var url = $("span.feed_unread_url").attr('data-feed-unread-url');
+    $.get(url);
+  });
+
   attachAccordion();
   setKeyboardShortcuts();
 });
