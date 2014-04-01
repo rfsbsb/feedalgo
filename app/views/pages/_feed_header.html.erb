@@ -1,43 +1,11 @@
-  <div class="header">
-    <% if feed.has_attribute?('title') %>
-      <h2>
-        <span id="title" data-resource="feed_user" data-type="text" data-url="/feed_users/<%= feed.id %>" data-title="Enter feed name"><%= feed.title %></span>
-        <small class="edit-title">Edit</small>
-      </h2>
+<div class="header">
+  <h2>
+    <span id="title" data-resource="feed_user" data-type="text" data-url="/feed_users/<%= feed.id %>" data-title="Enter feed name"><%= feed.title %></span>
+    <small class="edit-title">Edit</small>
+  </h2>
 
-      <span data-feed-unread-url="<%= unread_path(CGI.escape(feed.url))%>" class="feed_unread_url"></span>
-      <span data-feed-url="<%= reader_feed_path(CGI.escape(feed.url))%>" class="feed_url"></span>
-    <% else %>
-      <h2>
-        <span id="name" data-resource="folder" data-type="text" data-url="/folders/<%= feed.id %>" data-title="Enter folder name"><%= feed.name %></span>
-        <small class="edit-title">Edit</small>
-      </h2>
-
-      <span data-folder-id="<%= feed.id%>" class="folder_id"></span>
-    <% end %>
-
-    <div class="btn-toolbar">
-      <div class="btn-group">
-        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-          Show ...
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="#" id="showAll<%= feed.has_attribute?('title') ? "" : "Folder" %>">All</a></li>
-            <li><a href="#" id="showUnread<%= feed.has_attribute?('title') ? "" : "Folder" %>">Unread</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
-        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-          Mark all as read
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="#" class="mark" id="all">All items</a></li>
-            <li><a href="#" class="mark" id="day">Items older than one day</a></li>
-            <li><a href="#" class="mark" id="week">Items older than one week</a></li>
-            <li><a href="#" class="mark" id="month">Items older than one month</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <span data-unread-url="<%= unread_path(CGI.escape(feed.url))%>" class="unread_url"></span>
+  <span data-read-url="<%= reader_feed_path(CGI.escape(feed.url))%>" class="read_url"></span>
+  <span data-mark-all-url="<%= mark_all_path(CGI.escape(feed.url))%>" class="mark_all_url"></span>
+  <%= render "header_buttons" %>
+</div>

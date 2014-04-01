@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   def feed
     @feed = current_user.feeds.find_by_url(params[:id])
-    @entries = current_user.feed_entry_users.where(:feed_id => @feed).all
+    @entries = current_user.feed_entry_users.where(:feed_id => @feed)
     respond_to do |format|
       format.js
       format.html
@@ -12,7 +12,12 @@ class PagesController < ApplicationController
   end
 
   def folder
-    @folder = Folder.find_by_url(params[:id])
+    @folder = current_user.folders.find_by_name(params[:id])
+    @entries = current_user.feed_entry_users.where(:feed_id => @folder.feeds)
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def mark_as_read
@@ -33,16 +38,45 @@ class PagesController < ApplicationController
     end
   end
 
-  def show_all_folder
-  end
-
   def show_unread
-    @feed = current_user.feeds.where(:url => params[:id]).first
-    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed).all
+    @feed = current_user.feeds.find_by_url(params[:id])
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed)
     respond_to do |format|
       format.js {render :action => :feed}
       format.html {render :action => :feed}
     end
+  end
+
+  def folder_unread
+    @folder = current_user.folders.find_by_name(params[:id])
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @folder.feeds)
+    respond_to do |format|
+      format.js {render :action => :folder}
+      format.html {render :action => :folder}
+    end
+  end
+
+  def mark_all_read
+    @feed = current_user.feeds.find_by_url(params[:id])
+    query = current_user.feed_entry_users.unread.where(:feed_id => @feed)
+
+    case params[:period].downcase
+      when 'day'
+        query.day_older.joins(:feed_entry).update_all(:read => true)
+      when 'week'
+        query.week_older.joins(:feed_entry).update_all(:read => true)
+      when 'month'
+        query.month_older.joins(:feed_entry).update_all(:read => true)
+      else
+        query.joins(:feed_entry).update_all(:read => true)
+      end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def mark_all_folder_read
   end
 
 end

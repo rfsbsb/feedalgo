@@ -1,6 +1,6 @@
 
 function attachAccordion() {
-  $("#feed-container").accordion().accordion('destroy').accordion({
+  $("#feed-container").accordion({
     header: ".feed_bar",
     collapsible: true,
     animate: false,
@@ -30,18 +30,22 @@ function attachAccordion() {
 
 function mark_item_as_read(id) {
   if (id !== undefined) {
-    $.get('/f/'+id+'/mark_as_read');
+    $.get('/f/mark_as_read/' + id);
   }
 }
 
 /*
-  Since the link_to :remote feature of rails does use jQuery delegate there's a
+  Since the link_to :remote Rails' feature uses jQuery delegate there's a
   propagation from clicking on favorite icon to the jQuery Accordion, causing it
   to open and close as the user fav/unfav a item.
 
   To solve this, we have to attach the click behavior to every element, every
   time it is loaded, intercept the propagation, and then call the proper
   rails.click method to the item.
+
+  Also, it cannot be attached in a .live/.delegate/.on method as explained
+  on event.stopPropagation additional notes' page:
+  http://api.jquery.com/event.stopPropagation/
 
   That's the reason this function exists.
 */
@@ -88,13 +92,19 @@ function setKeyboardShortcuts() {
 $(document).ready(function() {
 
   $("#reader").on('click', '#showAll', function(){
-    var url = $("span.feed_url").attr('data-feed-url');
+    var url = $("span.read_url").attr('data-read-url');
     $.get(url);
   });
 
   $("#reader").on('click', '#showUnread' ,function(){
-    var url = $("span.feed_unread_url").attr('data-feed-unread-url');
+    var url = $("span.unread_url").attr('data-unread-url');
     $.get(url);
+  });
+
+  $("#reader").on('click', '.mark', function(){
+    var url = $("span.mark_all_url").attr('data-mark-all-url');
+    var period = $(this).attr('id');
+    $.post(url, {period: period});
   });
 
   attachAccordion();

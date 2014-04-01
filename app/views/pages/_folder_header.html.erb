@@ -1,0 +1,11 @@
+<div class="header">
+  <h2>
+    <span id="name" data-resource="folder" data-type="text" data-url="/folders/<%= folder.id %>" data-title="Enter folder name"><%= folder.name %></span>
+    <small class="edit-title">Edit</small>
+  </h2>
+
+  <span data-unread-url="<%= folder_unread_path(CGI.escape(folder.name))%>" class="unread_url"></span>
+  <span data-read-url="<%= reader_folder_path(CGI.escape(folder.name))%>" class="read_url"></span>
+  <span data-mark-all-url="<%= mark_all_folder_path(CGI.escape(folder.name))%>" class="mark_all_url"></span>
+  <%= render "header_buttons" %>
+</div>
