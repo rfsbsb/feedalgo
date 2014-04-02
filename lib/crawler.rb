@@ -5,6 +5,11 @@ class Crawler
     return
   end
 
+  def update_by_id(id)
+    feed = Feed.where(:id => id).pluck(:url)
+    fetch_and_persist(feed)
+  end
+
   def fetch_and_persist(feeds)
     Feedjira::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| persist(url, feed)})
   end
@@ -15,7 +20,7 @@ class Crawler
   end
 
   def persist_entries(entries, feed)
-    # Getting the base URL of the site
+    # Getting the site's base URL
     # It's used for better link creation when parsing body
     uri = URI.parse(feed.url)
     base_url = "#{uri.scheme}://#{uri.host}"
@@ -52,9 +57,10 @@ class Crawler
     end
   end
 
+  # Method used to parse, clean and format the content
   def parse_body(body, base_url)
     if body
-      body = Sanitize.clean(body, Sanitize::Config::RELAXED)
+      body = clear_content(body)
       doc = Nokogiri::HTML(body)
       # Image parsing
       doc.search("img").each do |img|
@@ -66,7 +72,7 @@ class Crawler
         end
         # Adding preloading data and classess
         img['src'] = "/assets/preloader.gif"
-        img['class'] = "img-polaroid img-rounded"
+        img['class'] = "img-rounded"
       end
 
       # Adding formatting classes for tables
@@ -86,5 +92,16 @@ class Crawler
       doc.xpath('//comment()').remove
       doc.xpath("//body").to_html
     end
+  end
+
+  # Method used to remove bloat from feed's entries
+  def clear_content(body)
+    doc = Nokogiri::HTML(body)
+    doc.xpath("//img[@width='1'][@height='1']").remove
+    doc.search(".mf-viral").remove()
+    doc.search(".feedflare").remove()
+    doc.search("script").remove()
+    body = doc.xpath("//body").to_html
+    Sanitize.clean(body, Sanitize::Config::RELAXED)
   end
 end
