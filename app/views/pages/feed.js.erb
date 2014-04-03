@@ -3,3 +3,4 @@ $('#reader').append('<%= escape_javascript render "feed_header", :feed => @feed 
 $('#reader').append('<div id="feed-container">');
 $('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries %>');
 attachAccordion();
+update_count('<%= @feed.id %>', '<%= @feed_count.zero? ? nil : @feed_count %>');

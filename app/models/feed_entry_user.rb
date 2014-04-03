@@ -23,4 +23,18 @@ class FeedEntryUser < ActiveRecord::Base
     return self
   end
 
+  def self.update_by_period (feed, period)
+    feed = self.unread.where(:feed_id => feed)
+    case period.downcase
+      when 'day'
+        feed.day_older.joins(:feed_entry).update_all(:read => true)
+      when 'week'
+        feed.week_older.joins(:feed_entry).update_all(:read => true)
+      when 'month'
+        feed.month_older.joins(:feed_entry).update_all(:read => true)
+      else
+        feed.joins(:feed_entry).update_all(:read => true)
+      end
+  end
+
 end

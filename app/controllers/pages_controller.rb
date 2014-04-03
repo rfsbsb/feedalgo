@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   def feed
     @feed = current_user.feeds.find_by_url(params[:id])
     @entries = current_user.feed_entry_users.where(:feed_id => @feed)
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js
       format.html
@@ -23,8 +24,7 @@ class PagesController < ApplicationController
   def mark_as_read
     @entry = current_user.feed_entry_users.find(params[:id])
     @entry.toggle_read
-    num_feeds = current_user.feed_entry_users.where(:feed_id => @entry.feed_id).where('feed_entry_users.read = ? or feed_entry_users.read is NULL',false).count()
-    @feed_count = num_feeds <= 0 ? nil : num_feeds
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @entry.feed_id).count()
     respond_to do |format|
       format.js
     end
@@ -41,6 +41,7 @@ class PagesController < ApplicationController
   def show_unread
     @feed = current_user.feeds.find_by_url(params[:id])
     @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed)
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js {render :action => :feed}
       format.html {render :action => :feed}
@@ -58,25 +59,27 @@ class PagesController < ApplicationController
 
   def mark_all_read
     @feed = current_user.feeds.find_by_url(params[:id])
-    query = current_user.feed_entry_users.unread.where(:feed_id => @feed)
+    current_user.feed_entry_users.update_by_period(@feed, params[:period])
 
-    case params[:period].downcase
-      when 'day'
-        query.day_older.joins(:feed_entry).update_all(:read => true)
-      when 'week'
-        query.week_older.joins(:feed_entry).update_all(:read => true)
-      when 'month'
-        query.month_older.joins(:feed_entry).update_all(:read => true)
-      else
-        query.joins(:feed_entry).update_all(:read => true)
-      end
+    @entries = current_user.feed_entry_users.where(:feed_id => @feed)
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
 
     respond_to do |format|
-      format.js
+      format.js {render :action => :feed}
+      format.html {render :action => :feed}
     end
   end
 
   def mark_all_folder_read
+    @folder = current_user.folders.find_by_name(params[:id])
+    current_user.feed_entry_users.update_by_period(@folder.feeds, params[:period])
+
+    @entries = current_user.feed_entry_users.where(:feed_id => @folder.feeds)
+
+    respond_to do |format|
+      format.js {render :action => :folder}
+      format.html {render :action => :folder}
+    end
   end
 
 end

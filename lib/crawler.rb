@@ -8,15 +8,24 @@ class Crawler
   def update_by_id(id)
     feed = Feed.where(:id => id).pluck(:url)
     fetch_and_persist(feed)
+    return
   end
 
   def fetch_and_persist(feeds)
-    Feedjira::Feed.fetch_and_parse(feeds, :on_success => lambda {|url, feed| persist(url, feed)})
+    success = lambda {|url, feed| persist(url, feed)}
+    failure = lambda { |curl, err| persist_error(curl, err) }
+    Feedjira::Feed.fetch_and_parse(feeds, :on_success => success, :on_failure => failure)
   end
 
   def persist(url, import_feed)
     feed = Feed.find_by_url(url)
     persist_entries(import_feed.entries, feed)
+  end
+
+  def persist_error(curl, err)
+    puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    puts err
+    puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   end
 
   def persist_entries(entries, feed)
@@ -75,6 +84,12 @@ class Crawler
         img['class'] = "img-rounded"
       end
 
+      # iframe prevent loading
+      doc.search("iframe").each do |iframe|
+        iframe['data-original'] = iframe['src']
+        iframe['src'] = "/assets/preloader.gif"
+      end
+
       # Adding formatting classes for tables
       doc.search("table").each do |table|
         table['class'] = "table table-bordered table-striped table-condensed"
@@ -102,6 +117,6 @@ class Crawler
     doc.search(".feedflare").remove()
     doc.search("script").remove()
     body = doc.xpath("//body").to_html
-    Sanitize.clean(body, Sanitize::Config::RELAXED)
+    Sanitize.clean(body, Sanitize::Config::CUSTOM)
   end
 end
