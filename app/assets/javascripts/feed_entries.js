@@ -1,6 +1,6 @@
 
 function attachAccordion() {
-  $("#feed-container").accordion({
+  $("#feed-container").accordion().accordion('destroy').accordion({
     header: ".feed_bar",
     collapsible: true,
     animate: false,
@@ -26,7 +26,6 @@ function attachAccordion() {
     }
   });
   favoriteIcons();
-  $("#reader").animate({scrollTop: 0}, 0);
 }
 
 function update_count(id, value) {
@@ -94,6 +93,15 @@ function setKeyboardShortcuts() {
   });
 }
 
+function load_paging() {
+  if ($(".next_page") !== undefined) {
+    var page = $(".next_page").attr("data-next-page");
+    var url = $(".next_page").attr("data-next-page-url");
+    $.post(url, {page: page});
+    $(".next_page").remove();
+  }
+}
+
 $(document).ready(function() {
 
   $("#reader").on('click', '#showAll', function(){
@@ -110,6 +118,12 @@ $(document).ready(function() {
     var url = $("span.mark_all_url").attr('data-mark-all-url');
     var period = $(this).attr('id');
     $.post(url, {period: period});
+  });
+
+  $("#reader").scroll(function(){
+    if ($(".next_page").visible()) {
+      load_paging();
+    }
   });
 
   attachAccordion();

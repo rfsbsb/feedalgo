@@ -159,6 +159,7 @@ GEM
       activemodel (>= 3.0.0)
     warden (1.2.3)
       rack (>= 1.0)
+    will_paginate (3.0.5)
 
 PLATFORMS
   ruby
@@ -187,3 +188,4 @@ DEPENDENCIES
   sqlite3
   uglifier
   validate_url
+  will_paginate (~> 3.0)

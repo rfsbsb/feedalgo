@@ -13,7 +13,7 @@ class Crawler
 
   def fetch_and_persist(feeds)
     success = lambda {|url, feed| persist(url, feed)}
-    failure = lambda { |curl, err| persist_error(curl, err) }
+    failure = lambda {|curl, err| persist_error(curl, err) }
     Feedjira::Feed.fetch_and_parse(feeds, :on_success => success, :on_failure => failure)
   end
 

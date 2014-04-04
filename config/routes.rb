@@ -11,6 +11,7 @@ Feedalgo::Application.routes.draw do
   resources :users
 
   match 'f/:id'                 => 'pages#feed',          :as => :reader_feed, :constraints => { :id => /[^\/]*/ }
+  match 'f/paging/:id'          => 'pages#feed_paging',   :as => :feed_paging, :constraints => { :id => /[^\/]*/ }
   match 'f/mark_as_read/:id'    => 'pages#mark_as_read'
   match 'f/favorite/:id'        => 'pages#favorite'
   match 'f/mark_all/:id'        => 'pages#mark_all_read', :as => :mark_all, :via => [:post], :constraints => { :id => /[^\/]*/ }
