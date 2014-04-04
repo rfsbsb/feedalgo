@@ -7,6 +7,6 @@ class Feed < ActiveRecord::Base
   has_many :feed_entries
   has_many :feed_entry_users
 
-  default_scope {order("feed_users.title ASC")}
+  scope :ordered, order("feed_users.title ASC")
 
 end
