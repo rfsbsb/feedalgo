@@ -4,4 +4,5 @@ class Folder < ActiveRecord::Base
   belongs_to :user
   has_many :feed_user
   has_many :feeds, :through => :feed_user
+
 end

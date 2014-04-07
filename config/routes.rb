@@ -19,6 +19,7 @@ Feedalgo::Application.routes.draw do
   match 'f/unread/:id'          => 'pages#show_unread',   :as => :unread, :constraints => { :id => /[^\/]*/ }
 
   match 'f/folder/:id'          => 'pages#folder',        :as => :reader_folder
+  match 'f/folder/toggle/:id'   => 'folders#toggle',      :as => :toggle_folder
   match 'f/folder/unread/:id'   => 'pages#folder_unread', :as => :folder_unread
   match 'f/folder/mark_all/:id' => 'pages#mark_all_folder_read', :as => :mark_all_folder, :via => [:post], :constraints => { :id => /[^\/]*/ }
 

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
       @unread = current_user.feed_entries.unread.count(:group => 'feed_entry_users.feed_id')
     end
   end
+
   def xeditable? object = nil
     true
   end

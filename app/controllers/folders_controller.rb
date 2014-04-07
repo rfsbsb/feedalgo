@@ -12,9 +12,9 @@ class FoldersController < ApplicationController
     end
   end
 
-  def toggle_state
+  def toggle
     folder = current_user.folders.find(params[:id])
-    folder.state = folder.state.to_i == 0 ? 1 : 0
+    folder.state = folder.state
     folder.save
     render nothing: true
   end

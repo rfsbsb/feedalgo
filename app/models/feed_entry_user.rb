@@ -4,7 +4,7 @@ class FeedEntryUser < ActiveRecord::Base
   belongs_to :feed
   belongs_to :feed_entry
 
-   self.per_page = 30
+  self.per_page = 30
 
   default_scope {includes(:feed_entry, :feed).order("feed_entries.created_at DESC")}
   scope :unread, where('feed_entry_users.read = ? OR feed_entry_users.read IS NULL',false)
