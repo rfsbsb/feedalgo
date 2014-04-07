@@ -22,4 +22,7 @@ Feedalgo::Application.routes.draw do
   match 'f/folder/unread/:id'   => 'pages#folder_unread', :as => :folder_unread
   match 'f/folder/mark_all/:id' => 'pages#mark_all_folder_read', :as => :mark_all_folder, :via => [:post], :constraints => { :id => /[^\/]*/ }
 
+  match '/f/folder/rename/:id'  => 'folders#rename',      :as => :rename_folder, :via => [:put, :post], :constraints => { :id => /[^\/]*/ }
+  match '/f/feed/rename/:id'    => 'feed_users#rename',   :as => :rename_feed, :via => [:put, :post], :constraints => { :id => /[^\/]*/ }
+
 end

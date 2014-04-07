@@ -33,8 +33,6 @@ GEM
     arel (3.0.3)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
-    bootstrap-editable-rails (0.0.5)
-      railties (>= 3.1)
     bootstrap-sass (3.1.0.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -160,13 +158,14 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.5)
+    x-editable-rails (1.5.3)
+      railties
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activerecord-import
-  bootstrap-editable-rails
   bootstrap-sass (>= 3.1.0)
   cancan
   coffee-rails
@@ -189,3 +188,4 @@ DEPENDENCIES
   uglifier
   validate_url
   will_paginate (~> 3.0)
+  x-editable-rails

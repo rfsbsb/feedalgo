@@ -9,5 +9,10 @@ $ ->
     $("#sidebar").innerHeight(newheight);
     $("#reader").innerHeight(newheight);
     return
+  $("#reader").on 'click', '.edit-title', (e, data, status, xhr) ->
+    e.stopPropagation();
+    e.preventDefault();
+    $('.header .editable').editable('toggle', null);
+    return
   $(window).resize();
   return

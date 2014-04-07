@@ -11,10 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require i18n
-//= require i18n/translations
 //= require jquery_ujs
 //= require bootstrap
+//= require editable/bootstrap-editable
+//= require editable/rails
+//= require i18n
+//= require i18n/translations
 //= require jquery.ui.accordion
 //= require jquery.ui.draggable
 //= require_tree .

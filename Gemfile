@@ -22,7 +22,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
 
-  gem 'bootstrap-editable-rails'
+  gem 'x-editable-rails'
   gem 'compass-rails'
   gem 'i18n-js'
 end

@@ -1,7 +1,7 @@
 <ul class="inner-sidebar">
   <%= content_tag_for( :li, @folders) do |folder| %>
     <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-folder-" + (folder.state ? "open" : "close")) %>
-    <%= link_to folder.name, reader_folder_path(folder.name), :remote => true %>
+    <%= link_to folder.name, reader_folder_path(folder), :remote => true %>
       <ul>
         <% folder.feeds.each do |feed|%>
           <li class="item" id="feed_<%= feed.id%>"><%= render "layouts/sidebar_feed", :feed => feed %></li>
