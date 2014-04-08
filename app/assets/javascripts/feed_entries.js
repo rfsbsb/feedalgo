@@ -104,6 +104,7 @@ function load_paging() {
 
 $(document).ready(function() {
   $.fn.editable.defaults.mode = 'inline';
+
   $("#reader").on('click', '#showAll', function(){
     var url = $("span.read_url").attr('data-read-url');
     $.get(url);

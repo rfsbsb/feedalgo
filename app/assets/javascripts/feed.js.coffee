@@ -1,6 +1,6 @@
 $ ->
   $(".item a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
-    href = e.target.href
+    href = e.target.href;
     history.pushState({}, '', href);
     return
   # Resizing the two main components on window resizing
@@ -15,8 +15,8 @@ $ ->
     $('.header .editable').editable('toggle', null);
     return
   $(".small-folder").click ->
-    $(this).parent().find(".nav").slideToggle('fast');
-    $(this).toggleClass("icon-folder-close").toggleClass("icon-folder-open");
+    $(this).parent().find(".nav").toggleClass('closed open', 'slow');
+    $(this).toggleClass("icon-folder-close icon-folder-open");
     # toggling the state of the folder
     folder_id = $(this).parent().attr('id').replace("folder_",'');
     $.get('/f/folder/toggle/' + folder_id);

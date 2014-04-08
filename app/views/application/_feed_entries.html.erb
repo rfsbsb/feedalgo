@@ -20,7 +20,7 @@
       </div>
       <div class="actions-bar">
         <span class="feed_icons"><%= render "icons", feed: user_entry %></span>
-        <span class="mark-read"><%= link_to user_entry.read? ? "Mark As Unread" : "Mark As Read", :controller => '/pages', :action => 'mark_as_read', :id => user_entry.id, :remote => true %></span>
+        <span class="mark-read"><%= link_to user_entry.read? ? "Mark As Unread" : "Mark As Read", :controller => '/feed_entry_users', :action => 'mark_as_read', :id => user_entry.id, :remote => true %></span>
       </div>
     </div>
   <% end %>

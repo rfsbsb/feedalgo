@@ -1,0 +1,5 @@
+<% if feed.favorite %>
+  <%= link_to content_tag(:span, ' ', :class => "icon-star yellow"), {:controller => "/feed_entry_users", :action => "favorite", :id => feed.id}, remote: true, :class => "feed_icon" %>
+<% else %>
+  <%= link_to content_tag(:span, ' ', :class => "icon-star-empty yellow"), {:controller => "/feed_entry_users", :action => "favorite", :id => feed.id}, remote: true, :class => "feed_icon" %>
+<% end %>

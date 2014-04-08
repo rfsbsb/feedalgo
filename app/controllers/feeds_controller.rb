@@ -1,53 +1,35 @@
 class FeedsController < ApplicationController
   before_filter :authenticate_user!
 
-  def index
-    @feeds = Feed.all
-  end
-
-  def new
-    @feed = Feed.new
-  end
-
-  def edit
-    @feed = Feed.find(params[:id])
-  end
-
-  def create
-    @feed = Feed.new(params[:feed])
-
+  def list
+    @feed = current_user.feeds.find_by_url(params[:id])
+    @feed_users = @feed.feed_users.first
+    @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
-      if @feed.save
-        format.html { redirect_to feeds_url, notice: 'Feed was successfully created.' }
-        format.json { render json: @feed, status: :created, location: @feed }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
-      end
+      format.js
+      format.html
     end
   end
 
-  def update
-    @feed = Feed.find(params[:id])
-
+  def list_paging
+    @feed = current_user.feeds.find_by_url(params[:id])
+    @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
     respond_to do |format|
-      if @feed.update_attributes(params[:feed])
-        format.html { redirect_to feeds_url, notice: 'Feed was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
-      end
+      format.js
     end
   end
 
-  def destroy
-    @feed = Feed.find(params[:id])
-    @feed.destroy
-
+  def unread
+    @feed = current_user.feeds.find_by_url(params[:id])
+    @feed_users = @feed.feed_users.first
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed)
+    @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
-      format.html { redirect_to feeds_url }
-      format.json { head :no_content }
+      format.js {render :action => :list}
+      format.html {render :action => :list}
     end
   end
+
+
 end
