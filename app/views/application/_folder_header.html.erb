@@ -1,6 +1,6 @@
 <div class="header">
   <h2>
-    <%= editable folder, :name, :url => rename_folder_path(folder), :value => folder.name, :placeholder => "Name" %>
+    <%= editable folder, :name, :url => rename_folder_path(folder), :value => folder.name, :placeholder => "Name", :feed_type => "folder", :id => folder.id %>
     <small class="edit-title">Edit</small>
   </h2>
 

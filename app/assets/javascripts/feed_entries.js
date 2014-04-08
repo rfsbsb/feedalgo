@@ -1,4 +1,3 @@
-
 function attachAccordion() {
   $("#feed-container").accordion().accordion('destroy').accordion({
     header: ".feed_bar",
@@ -104,6 +103,12 @@ function load_paging() {
 
 $(document).ready(function() {
   $.fn.editable.defaults.mode = 'inline';
+  // Everytime a folder or feed is renamed, rename on sidabar too
+  $.fn.editable.defaults.success = function (response, newValue) {
+    var id = $(this).attr("data-id");
+    var type = $(this).attr("data-feed-type");
+    $("#"+type+"_"+id).find('a').html(newValue);
+  }
 
   $("#reader").on('click', '#showAll', function(){
     var url = $("span.read_url").attr('data-read-url');
