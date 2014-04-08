@@ -107,7 +107,11 @@ $(document).ready(function() {
   $.fn.editable.defaults.success = function (response, newValue) {
     var id = $(this).attr("data-id");
     var type = $(this).attr("data-feed-type");
-    $("#"+type+"_"+id).find('a').html(newValue);
+    if (type == 'folder') {
+      $("#folder_" + id +" > a").html(newValue);
+    } else {
+      $("#feed_" + id +" .feed-name > a").html(newValue);
+    }
   }
 
   $("#reader").on('click', '#showAll', function(){
