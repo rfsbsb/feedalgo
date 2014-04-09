@@ -1,5 +1,6 @@
 <ul class="inner-sidebar">
-  <%= content_tag_for( :li, @folders) do |folder| %>
+  <li><%=  link_to "All", reader_all_path(), :remote => true %></li>
+  <%= content_tag_for(:li, @folders) do |folder| %>
     <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-folder-" + (folder.state ? "open" : "close")) %>
     <%= link_to folder.name, reader_folder_path(folder), :remote => true %>
       <ul class="nav <%= folder.state ? "open" : "closed" %>">

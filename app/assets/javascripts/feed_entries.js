@@ -11,7 +11,6 @@ function attachAccordion() {
           mark_item_as_read($(ui.newHeader).attr('id'));
         }
         var feed_entry = $(ui.newHeader).parent();
-
         // only load images and iframes when the feed is open avoiding unecesssary resource load
         var imgs = $(feed_entry).find("img[data-original],iframe[data-original]");
         $(imgs).each(function(index){

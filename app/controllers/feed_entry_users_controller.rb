@@ -17,7 +17,17 @@ class FeedEntryUsersController < ApplicationController
     end
   end
 
-  def mark_all_read
+  def mark_all_feed_read
+    @feeds = current_user.feeds
+    current_user.feed_entry_users.update_by_period(@feeds, params[:period])
+    @entries = current_user.feed_entry_users.where(:feed_id => @feeds)
+    respond_to do |format|
+      format.js {render :template => "feeds/all"}
+      format.html {render :template => "feeds/all"}
+    end
+  end
+
+  def mark_all_feed_read
     @feed = current_user.feeds.find_by_url(params[:id])
     @feed_users = @feed.feed_users.first
     current_user.feed_entry_users.update_by_period(@feed, params[:period])

@@ -31,5 +31,31 @@ class FeedsController < ApplicationController
     end
   end
 
+  def all
+    @feeds = current_user.feeds.all
+    @entries = current_user.feed_entry_users.where(:feed_id => @feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def all_paging
+    @feeds = current_user.feeds.all
+    @entries = current_user.feed_entry_users.where(:feed_id => @feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def all_unread
+    @feeds = current_user.feeds.all
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js {render :action => :all}
+      format.html {render :action => :all}
+    end
+  end
 
 end
