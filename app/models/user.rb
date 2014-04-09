@@ -11,6 +11,6 @@ class User < ActiveRecord::Base
   has_many :feed_entry_users
   has_many :feed_entries, :through => :feed_entry_users
   has_many :feed_users
-  has_many :feeds, :through => :feed_users
+  has_many :feeds, :through => :feed_users, select: "feeds.*, feed_users.title, feed_users.folder_id"
 
 end

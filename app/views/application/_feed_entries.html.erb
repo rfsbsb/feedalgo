@@ -1,22 +1,25 @@
 <% entries.each do |user_entry| %>
-  <% feed_entry = user_entry.feed_entry; %>
+  <%
+    feed_entry = user_entry.feed_entry
+    feed_user = feed_users.kind_of?(Array) ? feed_users.find {|s| s.id == user_entry.feed.id } : feed_users
+  %>
 
   <%= content_tag(:div, user_entry, :id => "feed_entry_#{user_entry.id}", :class=> "feed_entry") do %>
     <div id="<%= user_entry.id %>" class="feed_bar <%= "unread" if !user_entry.read? %>">
       <span class="date"><%= feed_entry.created_at.today? ? feed_entry.created_at.strftime("%H:%M:%S") : feed_entry.created_at.strftime("%d/%m/%y")  %> </span>
       <span class="feed_icons"><%= render "icons", feed: user_entry %></span>
-      <span class="feed_name"><%= user_entry.feed.title %></span>
+      <span class="feed_name"><%= feed_user.title %></span>
       <span class="small_title"><%= feed_entry.title.html_safe unless feed_entry.title.nil? %></span>
       <span class="trimed_body"> - <%= raw truncate(strip_tags(feed_entry.body.html_safe), :length => 200) if feed_entry.body %></span>
     </div>
     <div class="full_post">
       <h2 class="title"><%= raw link_to feed_entry.title.html_safe, feed_entry.url, :target => "_blank" unless feed_entry.title.nil? %></h2>
       <div class="authorship">
-        From <span class="origin"><%= link_to user_entry.feed.title, feed_entry.url %></span>
+        From <span class="origin"><%= link_to feed_user.title, feed_entry.url %></span>
         <% if feed_entry.author %>by <span class="author"><%= feed_entry.author %></span><% end %>
       </div>
       <div class="body">
-        <%= raw sanitize feed_entry.body, :tags => %w(table tr td th caption pre code ul ol li p a img strong em i b h1 h2 h3 h4 iframe hr br), :attributes => %w(id width height class src href data-original target alt title) %>
+        <%= raw sanitize feed_entry.body %>
       </div>
       <div class="actions-bar">
         <span class="feed_icons"><%= render "icons", feed: user_entry %></span>

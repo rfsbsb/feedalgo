@@ -6,8 +6,9 @@ class FeedUsersController < ApplicationController
 
   def rename
     @feed = current_user.feeds.find_by_url(params[:id])
+    feed_user = current_user.feed_users.find_by_feed_id(@feed)
     respond_to do |format|
-      if @feed.feed_users.first.update_attributes(params[:feed_user])
+      if feed_user.update_attributes(params[:feed_user])
         format.json { head :no_content } # 204 No Content
       else
         format.json { render json: @feed.errors, status: :unprocessable_entity }

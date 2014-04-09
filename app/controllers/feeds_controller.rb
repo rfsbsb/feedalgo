@@ -23,7 +23,7 @@ class FeedsController < ApplicationController
   def unread
     @feed = current_user.feeds.find_by_url(params[:id])
     @feed_users = @feed.feed_users.first
-    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed)
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js {render :action => :list}

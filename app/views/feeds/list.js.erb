@@ -1,7 +1,7 @@
 $('#reader').empty();
 $('#reader').append('<%= escape_javascript render "feed_header", :feed => @feed %>');
 $('#reader').append('<div id="feed-container">');
-$('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries %>');
+$('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries, :feed_users => @feed_users %>');
 $('#reader #feed-container').append('<span data-next-page="2" data-next-page-url="<%= feed_paging_path(CGI.escape(@feed.url)) %>" class="next_page">&nbsp;</span>');
 attachAccordion();
 update_count('<%= @feed.id %>', '<%= @feed_count.zero? ? nil : @feed_count %>');

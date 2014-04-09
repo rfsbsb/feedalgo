@@ -19,6 +19,9 @@ class Crawler
 
   def persist(url, import_feed)
     feed = Feed.find_by_url(url)
+    puts "***************************************************"
+    puts "Fetching #{feed.title}"
+    puts "***************************************************"
     persist_entries(import_feed.entries, feed)
   end
 

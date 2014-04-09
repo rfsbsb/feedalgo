@@ -1,5 +1,5 @@
 $('#reader').empty();
 $('#reader').append('<%= escape_javascript render "folder_header", :folder => @folder %>');
 $('#reader').append('<div id="feed-container">');
-$('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries %>');
+$('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries, :feed_users => @folder.feeds %>');
 attachAccordion();

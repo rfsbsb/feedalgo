@@ -1,6 +1,6 @@
 <div class="header">
   <h2>
-    <%= editable @feed_users, :title, :url => rename_feed_path(CGI.escape(feed.url)), :value => @feed_users.title, :placeholder => "Title", :feed_type => 'feed', :id => feed.id %>
+    <%= editable @feed_users, :title, :url => rename_feed_path(CGI.escape(feed.url)), :value => feed.title, :placeholder => "Title", :feed_type => 'feed', :id => feed.id %>
     <small class="edit-title">Edit</small>
   </h2>
 

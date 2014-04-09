@@ -1,4 +1,4 @@
 <%= render "folder_header", :folder => @folder %>
 <div id="feed-container">
-  <%= render "feed_entries", :entries => @entries %>
+  <%= render "feed_entries", :entries => @entries, :feed_users => @folder.feeds %>
 </div>

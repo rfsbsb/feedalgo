@@ -64,21 +64,21 @@ function favoriteIcons() {
 function setKeyboardShortcuts() {
   jwerty.key('k', function () {
     var active = $("#feed-container").accordion("option", "active");
-    if (active !== false) {
+    if (active !== false && !$(':focus').is("input")) {
       $("#feed-container .feed_entry").eq(active).prev().find('.feed_bar').click().focus();
     }
   });
 
   jwerty.key('j', function () {
     var active = $("#feed-container").accordion("option", "active");
-    if (active !== false) {
+    if (active !== false && !$(':focus').is("input")) {
       $("#feed-container .feed_entry").eq(active).next().find('.feed_bar').click().focus();
     }
   });
 
   jwerty.key('m', function () {
     var active = $("#feed-container").accordion("option", "active");
-    if (active !== false) {
+    if (active !== false && !$(':focus').is("input")) {
       var id = $("#feed-container .feed_entry").eq(active).find('.feed_bar').first().attr("id");
       mark_item_as_read(id);
     }
@@ -86,7 +86,7 @@ function setKeyboardShortcuts() {
 
   jwerty.key('f', function () {
     var active = $("#feed-container").accordion("option", "active");
-    if (active !== false) {
+    if (active !== false && !$(':focus').is("input")) {
       $("#feed-container .feed_entry").eq(active).find('.feed_icon').first().click();
     }
   });
