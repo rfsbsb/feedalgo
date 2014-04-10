@@ -1,5 +1,1 @@
-<%= render "feed_header", :feed => @feed %>
-<div id="feed-container">
-  <%= render "feed_entries", :entries => @entries, :feed_users => @feed_users %>
-  <span data-next-page="2" data-next-page-url="<%= feed_paging_path(CGI.escape(@feed.url)) %>" class="next_page">&nbsp;</span>
-</div>
+<%= render "list_item", :feed => @feed, :feed_users => @feed_users, :feed_count => @feed_count %>

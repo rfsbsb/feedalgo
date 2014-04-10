@@ -1,6 +1,2 @@
 $('#reader').empty();
-$('#reader').append('<%= escape_javascript render "all_header" %>');
-$('#reader').append('<div id="feed-container">');
-$('#reader #feed-container').append('<%= escape_javascript render "feed_entries", :entries => @entries, :feed_users => @feeds %>');
-$('#reader #feed-container').append('<span data-next-page="2" data-next-page-url="<%= reader_all_paging_path() %>" class="next_page">&nbsp;</span>');
-attachAccordion();
+$('#reader').append('<%= escape_javascript render "list_all_items", :entries => @entries, :feed_users => @feeds %>');
