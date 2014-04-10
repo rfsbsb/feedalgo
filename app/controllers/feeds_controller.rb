@@ -1,6 +1,5 @@
 class FeedsController < ApplicationController
   before_filter :authenticate_user!
-
   def list
     @feed = current_user.feeds.find_by_url(params[:id])
     @feed_users = @feed.feed_users.first
@@ -14,6 +13,7 @@ class FeedsController < ApplicationController
 
   def list_paging
     @feed = current_user.feeds.find_by_url(params[:id])
+    @feed_users = @feed.feed_users.first
     @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
     respond_to do |format|
       format.js

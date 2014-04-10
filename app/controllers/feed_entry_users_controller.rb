@@ -1,5 +1,5 @@
 class FeedEntryUsersController < ApplicationController
-
+  before_filter :authenticate_user!
   def mark_as_read
     @entry = current_user.feed_entry_users.find(params[:id])
     @entry.toggle_read

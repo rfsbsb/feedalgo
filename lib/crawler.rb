@@ -106,9 +106,12 @@ class Crawler
         end
         link['target'] = "_blank"
       end
-
       doc.xpath('//comment()').remove
-      doc.xpath("//body").to_html
+      # Removing empty paragraphs
+      doc.search("p").each do |node|
+        node.remove if node.inner_html.tap{|x| x.strip!}.blank?
+      end
+      doc.fragment(doc.to_html).to_html
     end
   end
 
@@ -119,7 +122,7 @@ class Crawler
     doc.search(".mf-viral").remove()
     doc.search(".feedflare").remove()
     doc.search("script").remove()
-    body = doc.xpath("//body").to_html
+    body = doc.to_html
     Sanitize.clean(body, Sanitize::Config::CUSTOM)
   end
 end

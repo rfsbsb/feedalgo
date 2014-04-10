@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   # Assemble the sidebar
   def fetch_feeds_sidebar
-    # Skip it if the call is result of a Ajax method
+    # Skip it if the call is result of an Ajax method
     unless request.xhr?
       if current_user != nil
         @folders = current_user.folders.all

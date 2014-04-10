@@ -19,7 +19,7 @@
         <% if feed_entry.author %>by <span class="author"><%= feed_entry.author %></span><% end %>
       </div>
       <div class="body">
-        <%= raw sanitize feed_entry.body %>
+        <%= raw feed_entry.body %>
       </div>
       <div class="actions-bar">
         <span class="feed_icons"><%= render "icons", feed: user_entry %></span>
