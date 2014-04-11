@@ -58,4 +58,24 @@ class FeedsController < ApplicationController
     end
   end
 
+  def new
+    @feed = Feed.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create
+    params[:feed][:user] = current_user
+    @feed = Feed.new(params[:feed])
+    debugger
+    respond_to do |format|
+      if @feed.save
+        format.json { render json: @feed, status: :created, location: @feed }
+      else
+        format.json { render json: @feed.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 end

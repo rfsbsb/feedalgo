@@ -77,7 +77,7 @@ class Crawler
       # Image parsing
       doc.search("img").each do |img|
         # Turning the image path absolute
-        if !img['src'].nil? && !img['src'].match(/^http/)
+        if !img['src'].nil? && !img['src'].match(/^http|^https|^\/\//)
           img['data-original'] = base_url + img['src']
         else
           img['data-original'] = img['src']
@@ -124,5 +124,13 @@ class Crawler
     doc.search("script").remove()
     body = doc.to_html
     Sanitize.clean(body, Sanitize::Config::CUSTOM)
+  end
+
+  def is_feed(url)
+    feed = Feedjira::Feed.fetch_and_parse(url)
+    if !feed.class.parents.include?(Feedjira)
+      return false
+    end
+    return feed
   end
 end

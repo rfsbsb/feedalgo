@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Modal header</h3>
+</div>
+<div class="modal-body">
+<h1>New feed</h1>
+<%= simple_form_for(@feed) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-group">
+    <%= f.input :url %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn-success" %>
+  </div>
+<% end %>
+</div>
+<div class="modal-footer">
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  <button class="btn btn-primary">Save changes</button>
+</div>

@@ -8,6 +8,7 @@ Feedalgo::Application.routes.draw do
 
   devise_for :users
   resources :users
+  resources :feeds
 
 
   match 'f/all'                 => 'feeds#all',           :as => :reader_all

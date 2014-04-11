@@ -1,0 +1,20 @@
+<div class="modal-dialog">
+  <%= simple_form_for(@feed, :remote => true) do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Feed</h4>
+      </div>
+      <div class="modal-body">
+        <%= f.error_notification %>
+        <div class="form-group">
+          <%= f.input :url %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.button :submit, :class => "btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
