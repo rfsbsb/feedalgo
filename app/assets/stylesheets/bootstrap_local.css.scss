@@ -16,6 +16,20 @@ a:hover {
   text-decoration: none;
 }
 
+.message-container {
+  margin-top: 10px;
+}
+
+.preloader {
+  width: 16px;
+}
+
+.modal-body {
+  #feed_url {
+    width: 80%;
+  }
+}
+
 #sidebar {
   background-color: $gray-lighter;
   padding-top: 20px;

@@ -60,20 +60,39 @@ class FeedsController < ApplicationController
 
   def new
     @feed = Feed.new
+    @folders = current_user.folders.all
     respond_to do |format|
       format.js
     end
   end
 
   def create
-    params[:feed][:user] = current_user
-    @feed = Feed.new(params[:feed])
-    debugger
-    respond_to do |format|
-      if @feed.save
-        format.json { render json: @feed, status: :created, location: @feed }
-      else
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
+    @feed = Feed.find_by_url(params[:feed][:url])
+    @folders = current_user.folders.all
+    if @feed
+      @feed_user = FeedUser.new(feed_id: @feed.id, user_id: current_user.id, title: @feed.title, folder_id: params[:feed][:folder_id])
+      respond_to do |format|
+        if @feed_user.save
+          flash.now[:notice] = 'The feed was successfully created.'
+          format.js
+        else
+          # TODO find a better way to show error message
+          @feed = Feed.new(:url => params[:feed][:url])
+          @feed.errors.add(:url, "Feed already added")
+          format.js
+        end
+      end
+    else
+      @feed = Feed.new(params[:feed])
+      @feed.user = current_user
+      @feed.folder_id = params[:feed][:folder_id]
+      respond_to do |format|
+        if @feed.save
+          flash.now[:notice] = 'The feed was successfully created.'
+          format.js
+        else
+          format.js
+        end
       end
     end
   end

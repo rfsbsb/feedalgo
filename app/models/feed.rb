@@ -1,5 +1,6 @@
 class Feed < ActiveRecord::Base
-  attr_accessible :title, :url, :favicon, :user
+  attr_accessible :title, :url, :favicon, :user, :folder_id
+
   validates :url, presence: true, url: true
   before_save :get_title_before_save
   after_save  :create_user_relationship
@@ -19,10 +20,17 @@ class Feed < ActiveRecord::Base
     @user = val
   end
 
+  def folder_id
+    @folder_id
+  end
+
+  def folder_id= (val)
+    @folder_id = val
+  end
+
   protected
     def get_title_before_save
       crawler = Crawler.new
-      debugger
       feed = crawler.is_feed(self.url)
 
       if (feed)
@@ -30,6 +38,7 @@ class Feed < ActiveRecord::Base
         return true
       end
 
+      errors.add(:url, "invalid RSS url.")
       return false
     end
 
@@ -37,6 +46,11 @@ class Feed < ActiveRecord::Base
       feed_user = FeedUser.new
       feed_user.feed_id = self.id
       feed_user.user_id = self.user.id
-      feed_user.save
+      feed_user.title = self.title
+      feed_user.folder_id = self.folder_id
+      if feed_user.save
+        crawler = Crawler.new
+        crawler.update_by_id self.id
+      end
     end
 end

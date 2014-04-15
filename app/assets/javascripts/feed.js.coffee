@@ -21,6 +21,8 @@ $ ->
     folder_id = $(this).parent().attr('id').replace("folder_",'');
     $.get('/f/folder/toggle/' + folder_id);
     return
+  $(document).on "click", "#new-feed .btn-success", (e, data, status, xhr) ->
+    $('.preloader').removeClass("hide");
 
   $(window).resize();
   return
