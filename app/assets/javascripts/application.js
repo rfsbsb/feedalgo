@@ -14,8 +14,6 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require bootstrap
-//= require editable/bootstrap-editable
-//= require editable/rails
 //= require i18n
 //= require i18n/translations
 //= require jquery.ui.accordion

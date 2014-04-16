@@ -2,7 +2,7 @@ class FeedsController < ApplicationController
   before_filter :authenticate_user!
   def list
     @feed = current_user.feeds.find_by_url(params[:id])
-    @feed_users = @feed.feed_users.first
+    @feed_users = current_user.feed_users.find_by_feed_id(@feed)
     @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
@@ -13,7 +13,7 @@ class FeedsController < ApplicationController
 
   def list_paging
     @feed = current_user.feeds.find_by_url(params[:id])
-    @feed_users = @feed.feed_users.first
+    @feed_users = current_user.feed_users.find_by_feed_id(@feed)
     @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
     respond_to do |format|
       format.js
@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
 
   def unread
     @feed = current_user.feeds.find_by_url(params[:id])
-    @feed_users = @feed.feed_users.first
+    @feed_users = current_user.feed_users.find_by_feed_id(@feed)
     @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
@@ -71,14 +71,13 @@ class FeedsController < ApplicationController
     @folders = current_user.folders.all
     if @feed
       @feed_user = FeedUser.new(feed_id: @feed.id, user_id: current_user.id, title: @feed.title, folder_id: params[:feed][:folder_id])
+      @feed = Feed.new(params[:feed])
       respond_to do |format|
         if @feed_user.save
           flash.now[:notice] = 'The feed was successfully created.'
           format.js
         else
-          # TODO find a better way to show error message
-          @feed = Feed.new(:url => params[:feed][:url])
-          @feed.errors.add(:url, "Feed already added")
+          @feed.errors.add(:url, "You already have subscribed to this feed.")
           format.js
         end
       end

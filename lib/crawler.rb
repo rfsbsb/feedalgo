@@ -119,6 +119,8 @@ class Crawler
   def clear_content(body)
     doc = Nokogiri::HTML(body)
     doc.xpath("//img[@width='1'][@height='1']").remove
+    doc.xpath("//a[starts-with(@href, 'http://da.feedsportal.com')]").remove
+    doc.xpath("//img[starts-with(@src, 'http://da.feedsportal.com')]").remove
     doc.search(".mf-viral").remove()
     doc.search(".feedflare").remove()
     doc.search("script").remove()

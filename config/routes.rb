@@ -9,6 +9,10 @@ Feedalgo::Application.routes.draw do
   devise_for :users
   resources :users
   resources :feeds
+  resources :feed_users, :except => ['update']
+  put 'feed_users/:id' => "feed_users#unsubscribe", constraints: lambda {|req| req.params.has_key?(:unsubscribe)}
+  put 'feed_users/:id' => "feed_users#update", constraints: lambda {|req| req.params.has_key?(:save)}
+
 
 
   match 'f/all'                 => 'feeds#all',           :as => :reader_all
@@ -27,9 +31,6 @@ Feedalgo::Application.routes.draw do
   match 'f/folder/toggle/:id'   => 'folders#toggle',      :as => :toggle_folder
   match 'f/folder/unread/:id'   => 'folders#unread',      :as => :folder_unread
   match 'f/folder/mark_all/:id' => 'feed_entry_users#mark_all_folder_read', :as => :mark_all_folder, :via => [:post], :constraints => { :id => /[^\/]*/ }
-
-  match '/f/folder/rename/:id'  => 'folders#rename',      :as => :rename_folder, :via => [:put, :post], :constraints => { :id => /[^\/]*/ }
-  match '/f/feed/rename/:id'    => 'feed_users#rename',   :as => :rename_feed, :via => [:put, :post], :constraints => { :id => /[^\/]*/ }
 
   match 'f/:id'                 => 'feeds#list',          :as => :reader_feed, :constraints => { :id => /[^\/]*/ }
 

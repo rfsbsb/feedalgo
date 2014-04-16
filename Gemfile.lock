@@ -158,8 +158,6 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.5)
-    x-editable-rails (1.5.3)
-      railties
 
 PLATFORMS
   ruby
@@ -188,4 +186,3 @@ DEPENDENCIES
   uglifier
   validate_url
   will_paginate (~> 3.0)
-  x-editable-rails

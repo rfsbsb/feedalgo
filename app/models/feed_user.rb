@@ -4,10 +4,11 @@ class FeedUser < ActiveRecord::Base
   belongs_to :feed
   after_create :associate_entries
   validates :feed_id, :uniqueness => {:scope => :user_id}
+  validates :title, presence: true, allow_blank: false
 
   private
     def associate_entries
-      entries = FeedEntry.where(:feed_id => self.feed_id).limit(10).order("id DESC")
+      entries = FeedEntry.where(:feed_id => self.feed_id).limit(30).order("id DESC")
       entry_list = []
       entries.each do |entry|
         feu = FeedEntryUser.new

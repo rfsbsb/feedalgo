@@ -1,5 +1,5 @@
 $ ->
-  $(".item a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
+  $("#sidebar a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
     href = e.target.href;
     history.pushState({}, '', href);
     return
@@ -9,11 +9,6 @@ $ ->
     $("#sidebar").innerHeight(newheight);
     $("#reader").innerHeight(newheight);
     return
-  $("#reader").on 'click', '.edit-title', (e, data, status, xhr) ->
-    e.stopPropagation();
-    e.preventDefault();
-    $('.header .editable').editable('toggle', null);
-    return
   $(".small-folder").click ->
     $(this).parent().find(".nav").toggleClass('closed open', 'slow');
     $(this).toggleClass("icon-folder-close icon-folder-open");
@@ -21,7 +16,7 @@ $ ->
     folder_id = $(this).parent().attr('id').replace("folder_",'');
     $.get('/f/folder/toggle/' + folder_id);
     return
-  $(document).on "click", "#new-feed .btn-success", (e, data, status, xhr) ->
+  $(document).on "click", "#new-feed .btn", (e, data, status, xhr) ->
     $('.preloader').removeClass("hide");
 
   $(window).resize();

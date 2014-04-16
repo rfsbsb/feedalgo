@@ -21,8 +21,6 @@ group :assets do
   gem 'bootstrap-sass', '>= 3.1.0'
   gem 'coffee-rails'
   gem 'uglifier'
-
-  gem 'x-editable-rails'
   gem 'compass-rails'
   gem 'i18n-js'
 end

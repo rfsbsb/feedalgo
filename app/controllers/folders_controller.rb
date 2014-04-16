@@ -2,7 +2,7 @@ class FoldersController < ApplicationController
   before_filter :authenticate_user!
   def list
     @folder = current_user.folders.find(params[:id])
-    @entries = current_user.feed_entry_users.where(:feed_id => @folder.feeds)
+    @entries = current_user.feed_entry_users.where(:feed_id => @folder.feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js
       format.html
@@ -11,21 +11,10 @@ class FoldersController < ApplicationController
 
   def unread
     @folder = current_user.folders.find(params[:id])
-    @entries = current_user.feed_entry_users.unread.where(:feed_id => @folder.feeds)
+    @entries = current_user.feed_entry_users.unread.where(:feed_id => @folder.feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js {render :action => :list}
       format.html {render :action => :list}
-    end
-  end
-
-  def rename
-    @folder = current_user.folders.find(params[:id])
-    respond_to do |format|
-      if @folder.update_attributes(params[:folder])
-        format.json { head :no_content } # 204 No Content
-      else
-        format.json { render json: @folder.errors, status: :unprocessable_entity }
-      end
     end
   end
 
