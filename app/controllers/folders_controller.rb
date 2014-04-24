@@ -25,4 +25,34 @@ class FoldersController < ApplicationController
     render nothing: true
   end
 
+  def edit
+    @folder = current_user.folders.find(params[:id])
+  end
+
+  def update
+    @folder = current_user.folders.find(params[:id])
+    respond_to do |format|
+      if @folder.update_attributes(params[:folder])
+        format.js {
+          flash[:notice] = 'The folder was successfully updated.'
+        }
+      else
+        format.js
+      end
+    end
+  end
+
+  def remove
+    @folder = current_user.folders.find(params[:id])
+    respond_to do |format|
+      if @folder.destroy
+        format.js {
+          flash[:notice] = "The folder was successfully removed."
+        }
+      else
+        format.js
+      end
+    end
+  end
+
 end

@@ -1,0 +1,22 @@
+<div id="new-feed" class="modal-dialog">
+  <%= simple_form_for(@folder, :remote => true) do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Folder</h4>
+      </div>
+      <div class="modal-body">
+        <%= f.error_notification %>
+        <div class="form-inputs">
+          <%= f.input :name, :required => true%>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= image_tag("preloader.gif", :class => 'preloader hide') %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.button :submit, "Delete folder", :class => "btn-danger pull-left", name: "remove", :confirm => "Are you sure you want to remove the folder and unsubscribe to all feeds under it?" %>
+        <%= f.button :submit, "Save", :class => "btn-success", name: "save" %>
+      </div>
+    </div>
+  <% end %>
+</div>

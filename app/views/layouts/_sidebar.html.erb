@@ -1,6 +1,9 @@
 <ul class="inner-sidebar">
-  <li><%= link_to 'New', new_feed_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
-  <li><%=  link_to "All", reader_all_path(), :remote => true %></li>
+  <li><%= link_to content_tag(:span, " " , :class => "pull-left small-folder icon-plus")+'Add subscription', new_feed_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :class => "btn btn-xs btn-success"}  %></li>
+  <li>
+    <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-rss") %>
+    <%=  link_to "All", reader_all_path(), :remote => true %>
+  </li>
   <%= content_tag_for(:li, @folders) do |folder| %>
     <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-folder-" + (folder.state ? "open" : "close")) %>
     <%= link_to folder.name, reader_folder_path(folder), :remote => true %>

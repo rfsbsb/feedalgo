@@ -5,6 +5,7 @@ class FeedUser < ActiveRecord::Base
   after_create :associate_entries
   validates :feed_id, :uniqueness => {:scope => :user_id}
   validates :title, presence: true, allow_blank: false
+  after_destroy :remove_relationship
 
   private
     def associate_entries
@@ -18,6 +19,10 @@ class FeedUser < ActiveRecord::Base
         feu.save
       end
       return true
+    end
+
+    def remove_relationship
+      FeedEntryUser.delete_all(["user_id=? AND feed_id=?", self.user_id, self.feed_id])
     end
 
 end

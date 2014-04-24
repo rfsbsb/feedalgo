@@ -1,7 +1,7 @@
 <div class="header">
   <h2>
     <span><%= folder.name %></span>
-    <small class="edit-title">Edit</small>
+    <small class="edit-title"><%= link_to 'Edit', edit_folder_path(folder.id),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></small>
   </h2>
 
   <span data-unread-url="<%= folder_unread_path(folder)%>" class="unread_url"></span>

@@ -9,6 +9,11 @@ Feedalgo::Application.routes.draw do
   devise_for :users
   resources :users
   resources :feeds
+
+  resources :folders, :except => ['update']
+  put 'folders/:id' => "folders#remove", constraints: lambda {|req| req.params.has_key?(:remove)}
+  put 'folders/:id' => "folders#update", constraints: lambda {|req| req.params.has_key?(:save)}
+
   resources :feed_users, :except => ['update']
   put 'feed_users/:id' => "feed_users#unsubscribe", constraints: lambda {|req| req.params.has_key?(:unsubscribe)}
   put 'feed_users/:id' => "feed_users#update", constraints: lambda {|req| req.params.has_key?(:save)}
