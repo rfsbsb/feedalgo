@@ -19,5 +19,14 @@ $ ->
   $(document).on "click", "#new-feed .btn", (e, data, status, xhr) ->
     $('.preloader').removeClass("hide");
 
+  # Avoid submit form when press enter
+  $(document).on "keyup keypress", ".modal-dialog form", (e, data, status, xhr) ->
+    code = e.keyCode || e.which;
+    if (code == 13)
+      e.preventDefault();
+      return false;
+    return true
+
+
   $(window).resize();
   return
