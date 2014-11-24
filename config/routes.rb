@@ -23,6 +23,7 @@ Feedalgo::Application.routes.draw do
   match 'f/all'                 => 'feeds#all',           :as => :reader_all
   match 'f/paging/all'          => 'feeds#all_paging',    :as => :reader_all_paging
   match 'f/all/unread'          => 'feeds#all_unread',    :as => :reader_all_unread
+  match 'f/all/favorites'       => 'feeds#all_favorite',  :as => :reader_all_favorite
   match 'f/mark_all'            => 'feed_entry_users#mark_all_read', :as => :mark_all, :via => [:post]
 
   match 'f/paging/:id'          => 'feeds#list_paging',   :as => :feed_paging, :constraints => { :id => /[^\/]*/ }
@@ -31,10 +32,12 @@ Feedalgo::Application.routes.draw do
   match 'f/mark_all/:id'        => 'feed_entry_users#mark_all_feed_read', :as => :mark_all_feed, :via => [:post], :constraints => { :id => /[^\/]*/ }
 
   match 'f/unread/:id'          => 'feeds#unread',        :as => :unread, :constraints => { :id => /[^\/]*/ }
+  match 'f/favorites/:id'       => 'feeds#favorite',      :as => :favorite, :constraints => { :id => /[^\/]*/ }
 
   match 'f/folder/:id'          => 'folders#list',        :as => :reader_folder
   match 'f/folder/toggle/:id'   => 'folders#toggle',      :as => :toggle_folder
   match 'f/folder/unread/:id'   => 'folders#unread',      :as => :folder_unread
+  match 'f/folder/favorites/:id'=> 'folders#favorite',    :as => :folder_favorite
   match 'f/folder/mark_all/:id' => 'feed_entry_users#mark_all_folder_read', :as => :mark_all_folder, :via => [:post], :constraints => { :id => /[^\/]*/ }
 
   match 'f/:id'                 => 'feeds#list',          :as => :reader_feed, :constraints => { :id => /[^\/]*/ }

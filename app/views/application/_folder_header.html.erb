@@ -5,6 +5,7 @@
   </h2>
 
   <span data-unread-url="<%= folder_unread_path(folder)%>" class="unread_url"></span>
+  <span data-favorite-url="<%= folder_favorite_path(folder)%>" class="favorite_url"></span>
   <span data-read-url="<%= reader_folder_path(folder)%>" class="read_url"></span>
   <span data-mark-all-url="<%= mark_all_folder_path(folder)%>" class="mark_all_url"></span>
   <%= render "header_buttons" %>

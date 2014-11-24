@@ -28,7 +28,8 @@ class FeedEntryUsersController < ApplicationController
   end
 
   def mark_all_feed_read
-    @feed = current_user.feeds.find_by_url(params[:id])
+    id = URI.unescape(params[:id])
+    @feed = current_user.feeds.find_by_url(id)
     @feed_users = @feed.feed_users.first
     current_user.feed_entry_users.update_by_period(@feed, params[:period])
 

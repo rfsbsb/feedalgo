@@ -18,6 +18,15 @@ class FoldersController < ApplicationController
     end
   end
 
+  def favorite
+    @folder = current_user.folders.find(params[:id])
+    @entries = current_user.feed_entry_users.favorite.where(:feed_id => @folder.feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js {render :action => :list}
+      format.html {render :action => :list}
+    end
+  end
+
   def toggle
     folder = current_user.folders.find(params[:id])
     folder.state = folder.state ? 0 : 1

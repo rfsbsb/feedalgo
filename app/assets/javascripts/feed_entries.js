@@ -111,6 +111,11 @@ $(document).ready(function() {
     $.get(url);
   });
 
+  $("#reader").on('click', '#showFavorite' ,function(){
+    var url = $("span.favorite_url").attr('data-favorite-url');
+    $.get(url);
+  });
+
   $("#reader").on('click', '.mark', function(){
     var url = $("span.mark_all_url").attr('data-mark-all-url');
     var period = $(this).attr('id');

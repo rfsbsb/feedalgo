@@ -5,6 +5,7 @@
   </h2>
 
   <span data-unread-url="<%= unread_path(CGI.escape(feed.url))%>" class="unread_url"></span>
+  <span data-favorite-url="<%= favorite_path(CGI.escape(feed.url))%>" class="favorite_url"></span>
   <span data-read-url="<%= reader_feed_path(CGI.escape(feed.url))%>" class="read_url"></span>
   <span data-mark-all-url="<%= mark_all_feed_path(CGI.escape(feed.url))%>" class="mark_all_url"></span>
   <%= render "header_buttons" %>
