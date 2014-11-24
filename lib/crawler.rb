@@ -27,7 +27,7 @@ class Crawler
 
   def persist_error(curl, err)
     puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    puts err
+    puts "===========" + curl.url
     puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   end
 
@@ -63,7 +63,7 @@ class Crawler
         entry.title  = e.title
         entry.feed_id = feed.id
         entry.author = e.author if e.author
-        entry.created_at = e.published
+        entry.created_at = e.published if !e.published.nil?
         entry.save
       end
     end
