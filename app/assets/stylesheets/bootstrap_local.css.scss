@@ -49,18 +49,19 @@ a:hover {
   }
   ul {
     margin: 0;
-    padding: 0;
+    padding: 0 0 15px 0;
   }
 }
 
 #toolbar {
-  background-color: #ddd;
+  background-color: #eee;
   padding: 10px;
   bottom: 0;
   float: none;
   min-height: 40px;
   position: fixed;
   @include box-sizing;
+  border-top: 1px solid #ddd;
 }
 
 .inner-sidebar {

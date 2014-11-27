@@ -5,8 +5,8 @@ $ ->
     return
   # Resizing the two main components on window resizing
   $(window).resize ->
-    newheight = $(window).innerHeight() - $("#main-header").innerHeight() - 50;
-    $("#sidebar").innerHeight(newheight);
+    newheight = $(window).innerHeight() - $("#main-header").innerHeight();
+    $("#sidebar").innerHeight(newheight - 50);
     $("#reader").innerHeight(newheight);
     return
   $(".small-folder").click ->
