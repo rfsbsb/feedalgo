@@ -53,6 +53,16 @@ a:hover {
   }
 }
 
+#toolbar {
+  background-color: #ddd;
+  padding: 10px;
+  bottom: 0;
+  float: none;
+  min-height: 40px;
+  position: fixed;
+  @include box-sizing;
+}
+
 .inner-sidebar {
   padding-left: 0;
   list-style: none;

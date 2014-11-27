@@ -34,6 +34,26 @@ class FoldersController < ApplicationController
     render nothing: true
   end
 
+  def new
+    @folder = Folder.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create
+    @folder = Folder.new(params[:folder])
+    @folder.user_id = current_user.id
+
+    respond_to do |format|
+      if @folder.save
+        format.js { flash[:notice] = 'The folder was successfully created.' }
+      else
+        format.js
+      end
+    end
+  end
+
   def edit
     @folder = current_user.folders.find(params[:id])
   end

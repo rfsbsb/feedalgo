@@ -5,7 +5,7 @@ $ ->
     return
   # Resizing the two main components on window resizing
   $(window).resize ->
-    newheight = $(window).innerHeight() - $("#main-header").innerHeight();
+    newheight = $(window).innerHeight() - $("#main-header").innerHeight() - 50;
     $("#sidebar").innerHeight(newheight);
     $("#reader").innerHeight(newheight);
     return
