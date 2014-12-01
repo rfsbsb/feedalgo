@@ -20,13 +20,13 @@ Feedalgo::Application.routes.draw do
 
 
 
-  match 'f/all'                 => 'feeds#all',           :as => :reader_all
-  match 'f/paging/all'          => 'feeds#all_paging',    :as => :reader_all_paging
-  match 'f/all/unread'          => 'feeds#all_unread',    :as => :reader_all_unread
-  match 'f/all/favorites'       => 'feeds#all_favorite',  :as => :reader_all_favorite
-  match 'f/mark_all'            => 'feed_entry_users#mark_all_read', :as => :mark_all, :via => [:post]
+  match 'f/all'                 => 'feeds#all',                       :as => :reader_all
+  match 'f/paging/all'          => 'feeds#all_paging',                :as => :reader_all_paging
+  match 'f/all/unread'          => 'feeds#all_unread',                :as => :reader_all_unread
+  match 'f/all/favorites'       => 'feeds#all_favorite',              :as => :reader_all_favorite
+  match 'f/mark_all'            => 'feed_entry_users#mark_all_read',  :as => :mark_all, :via => [:post]
 
-  match 'f/paging/:id'          => 'feeds#list_paging',   :as => :feed_paging, :constraints => { :id => /[^\/]*/ }
+  match 'f/paging/:id'          => 'feeds#list_paging',               :as => :feed_paging, :constraints => { :id => /[^\/]*/ }
   match 'f/mark_as_read/:id'    => 'feed_entry_users#mark_as_read'
   match 'f/favorite/:id'        => 'feed_entry_users#favorite'
   match 'f/mark_all/:id'        => 'feed_entry_users#mark_all_feed_read', :as => :mark_all_feed, :via => [:post], :constraints => { :id => /[^\/]*/ }

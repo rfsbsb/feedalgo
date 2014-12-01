@@ -1,7 +1,11 @@
 <ul class="inner-sidebar">
   <li>
-    <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-rss") %>
+    <%= content_tag(:span, " " , :class => "pull-left small-folder orange icon-rss") %>
     <%=  link_to "All", reader_all_path(), :remote => true %>
+  </li>
+  <li>
+    <%= content_tag(:span, " " , :class => "pull-left small-folder yellow icon-star") %>
+    <%=  link_to "Favorites", reader_all_favorite_path(), :remote => true %>
   </li>
   <%= content_tag_for(:li, @folders) do |folder| %>
     <%= content_tag(:span, " " , :class => "pull-left small-folder black icon-folder-" + (folder.state ? "open" : "close")) %>
