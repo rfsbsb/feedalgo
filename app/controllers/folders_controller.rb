@@ -9,6 +9,15 @@ class FoldersController < ApplicationController
     end
   end
 
+  def list_paging
+    @folder = current_user.folders.find(params[:id])
+    @entries = current_user.feed_entry_users.where(:feed_id => @folder.feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
   def unread
     @folder = current_user.folders.find(params[:id])
     @entries = current_user.feed_entry_users.unread.where(:feed_id => @folder.feeds).paginate(:page => params[:page])
