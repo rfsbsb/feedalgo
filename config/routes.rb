@@ -18,6 +18,7 @@ Feedalgo::Application.routes.draw do
   match 'f/paging/all'           => 'feeds#all_paging',                      :as => :reader_all_paging
   match 'f/all/unread'           => 'feeds#all_unread',                      :as => :reader_all_unread
   match 'f/all/favorites'        => 'feeds#all_favorite',                    :as => :reader_all_favorite
+  match 'f/paging/favorites'     => 'feeds#all_favorite_paging',             :as => :reader_all_favorite_paging
   match 'f/folder/:id'           => 'folders#list',                          :as => :reader_folder
   match 'f/folder/toggle/:id'    => 'folders#toggle',                        :as => :toggle_folder
   match 'f/folder/unread/:id'    => 'folders#unread',                        :as => :folder_unread

@@ -77,8 +77,17 @@ class FeedsController < ApplicationController
     @feeds = current_user.feeds.all
     @entries = current_user.feed_entry_users.favorite.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
-      format.js {render :action => :all}
-      format.html {render :action => :all}
+      format.js {render :action => :favorite}
+      format.html {render :action => :favorite}
+    end
+  end
+
+  def all_favorite_paging
+    @feeds = current_user.feeds.all
+    @entries = current_user.feed_entry_users.favorite.where(:feed_id => @feeds).paginate(:page => params[:page])
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
 
