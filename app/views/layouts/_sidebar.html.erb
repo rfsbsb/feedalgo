@@ -4,7 +4,7 @@
     <%=  link_to "All", reader_all_path(), :remote => true %>
   </li>
   <li>
-    <%= content_tag(:span, " " , :class => "pull-left small-folder yellow icon-star") %>
+    <%= content_tag(:span, " " , :class => "pull-left small-star yellow icon-star") %>
     <%=  link_to "Favorites", reader_all_favorite_path(), :remote => true %>
   </li>
   <%= content_tag_for(:li, @folders) do |folder| %>
