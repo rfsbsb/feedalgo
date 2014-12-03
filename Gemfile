@@ -28,4 +28,5 @@ end
 group :development do
   gem 'rails-footnotes'
   gem 'debugger'
+  gem 'capistrano'
 end
