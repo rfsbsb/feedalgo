@@ -14,6 +14,7 @@ gem 'mysql2'
 gem 'sanitize'
 gem 'activerecord-import'
 gem 'will_paginate', '~> 3.0'
+gem "omniauth-google-oauth2"
 
 group :assets do
   gem 'jquery-ui-rails'
