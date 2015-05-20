@@ -15,6 +15,7 @@ gem 'sanitize'
 gem 'activerecord-import'
 gem 'will_paginate', '~> 3.0'
 gem "omniauth-google-oauth2"
+gem 'opml_saw', :git => "git://github.com/feedbin/opml_saw.git", :branch => "master"
 
 group :assets do
   gem 'jquery-ui-rails'

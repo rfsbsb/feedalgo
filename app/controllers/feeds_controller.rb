@@ -129,4 +129,18 @@ class FeedsController < ApplicationController
     end
   end
 
+  def import
+    invalid = []
+    if !params[:opml].nil?
+      opml_file = params[:opml][:file]
+      imp = Importer.new(opml_file, current_user)
+      imp.import()
+      invalid = imp.invalids
+      if invalid.size > 0
+        flash[:error] = 'Some feeds have problems: ' + invalid.join(", ")
+      end
+      flash[:notice] = 'Feeds imported.'
+    end
+  end
+
 end

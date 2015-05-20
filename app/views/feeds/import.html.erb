@@ -1,0 +1,4 @@
+<%= simple_form_for :opml, :html => {:multipart => true}  do |f| %>
+  <%= f.input :file, :as => :file, :label => "Choose your OPML file." %>
+  <%= f.button :submit, "Upload", class: "btn btn-success" %>
+<% end %>

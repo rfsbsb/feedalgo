@@ -14,6 +14,7 @@ Feedalgo::Application.routes.draw do
   put   'folders/:id'            => "folders#update",                        constraints: lambda {|req| req.params.has_key?(:save)}
   put   'feed_users/:id'         => "feed_users#unsubscribe",                constraints: lambda {|req| req.params.has_key?(:unsubscribe)}
   put   'feed_users/:id'         => "feed_users#update",                     constraints: lambda {|req| req.params.has_key?(:save)}
+  match 'f/import'               => 'feeds#import',                          :as => :import
   match 'f/all'                  => 'feeds#all',                             :as => :reader_all
   match 'f/paging/all'           => 'feeds#all_paging',                      :as => :reader_all_paging
   match 'f/all/unread'           => 'feeds#all_unread',                      :as => :reader_all_unread
