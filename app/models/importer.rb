@@ -19,7 +19,7 @@ class Importer
         old_feed = Feed.find_by_url(feed[:xml_url])
         folder = nil
         if feed[:tag] != nil
-          folder = Folder.find_or_initialize_by_name(feed[:tag])
+          folder = Folder.find_or_initialize_by_name_and_user_id(feed[:tag], self.user.id)
           folder.user = self.user
           folder.save
         end
