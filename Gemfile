@@ -5,7 +5,7 @@ gem 'sqlite3'
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
-gem 'feedjira'
+gem 'feedjira', '2.0'
 gem 'validate_url'
 gem 'simple_form'
 gem 'jquery-rails'
@@ -16,6 +16,8 @@ gem 'activerecord-import'
 gem 'will_paginate', '~> 3.0'
 gem "omniauth-google-oauth2"
 gem 'opml_saw', :git => "git://github.com/feedbin/opml_saw.git", :branch => "master"
+gem 'curb', '~> 0.8.8'
+gem 'test-unit'
 
 group :assets do
   gem 'jquery-ui-rails'
@@ -29,5 +31,5 @@ end
 
 group :development do
   gem 'rails-footnotes'
-  gem 'debugger'
+  gem 'byebug'
 end

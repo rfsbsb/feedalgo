@@ -12,9 +12,14 @@ class Crawler
   end
 
   def fetch_and_persist(feeds)
-    success = lambda {|url, feed| persist(url, feed)}
-    failure = lambda {|curl, err| persist_error(curl, err) }
-    Feedjira::Feed.fetch_and_parse(feeds, :on_success => success, :on_failure => failure)
+    feeds.each do |feed|
+      begin
+        pricessed_feed = Feedjira::Feed.fetch_and_parse(feed)
+        persist(feed, pricessed_feed)
+      rescue Feedjira::FetchFailure
+        persist_error(feed, "bizarro")
+      end
+    end
   end
 
   def persist(url, import_feed)
@@ -25,9 +30,9 @@ class Crawler
     persist_entries(import_feed.entries, feed)
   end
 
-  def persist_error(curl, err)
+  def persist_error(url, err)
     puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    puts "===========" + curl.url
+    puts "===========" + url
     puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   end
 

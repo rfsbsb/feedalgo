@@ -11,9 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.ui.accordion
-//= require jquery.ui.draggable
-//= require jquery.ui.droppable
+//= require jquery-ui
+//= require jquery-ui/accordion
+//= require jquery-ui/draggable
+//= require jquery-ui/droppable
 //= require jquery_ujs
 //= require bootstrap
 //= require i18n
