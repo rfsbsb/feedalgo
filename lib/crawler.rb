@@ -48,13 +48,13 @@ class Crawler
     end
 
     # We get the latest URLs to compare to the new ones.
-    urls_db = FeedEntry.where(feed_id: feed.id).pluck(:title)
+    urls_db = FeedEntry.where(feed_id: feed.id).pluck(:url)
     new_urls = urls - urls_db
 
     entry_list = []
     # We only insert new URLs, avoiding duplications
     entries.each do |e|
-      if !new_urls.include?(e.url)
+      if new_urls.include?(e.url)
         entry = FeedEntry.new
         body = nil
         # Not all feeds use bodies, some use only summaries and few use none
