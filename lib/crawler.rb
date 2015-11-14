@@ -54,7 +54,7 @@ class Crawler
     entry_list = []
     # We only insert new URLs, avoiding duplications
     entries.each do |e|
-      if new_urls.include?(e.title)
+      if !new_urls.include?(e.url)
         entry = FeedEntry.new
         body = nil
         # Not all feeds use bodies, some use only summaries and few use none
