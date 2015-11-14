@@ -14,10 +14,10 @@ class Crawler
   def fetch_and_persist(feeds)
     feeds.each do |feed|
       begin
-        pricessed_feed = Feedjira::Feed.fetch_and_parse(feed)
-        persist(feed, pricessed_feed)
-      rescue Feedjira::FetchFailure
-        persist_error(feed, "bizarro")
+        processed_feed = Feedjira::Feed.fetch_and_parse(feed)
+        persist(feed, processed_feed)
+      rescue Feedjira::FetchFailure => e
+        persist_error(feed, e)
       end
     end
   end
@@ -42,19 +42,19 @@ class Crawler
     uri = URI.parse(feed.url)
     base_url = "#{uri.scheme}://#{uri.host}"
 
-    titles = []
+    urls = []
     entries.each do |e|
-      titles.push(e.title)
+      urls.push(e.url)
     end
 
     # We get the latest URLs to compare to the new ones.
-    titles_db = FeedEntry.where(feed_id: feed.id).pluck(:title)
-    new_titles = titles - titles_db
+    urls_db = FeedEntry.where(feed_id: feed.id).pluck(:title)
+    new_urls = urls - urls_db
 
     entry_list = []
     # We only insert new URLs, avoiding duplications
     entries.each do |e|
-      if new_titles.include?(e.title)
+      if new_urls.include?(e.title)
         entry = FeedEntry.new
         body = nil
         # Not all feeds use bodies, some use only summaries and few use none
@@ -78,7 +78,7 @@ class Crawler
   def parse_body(body, base_url)
     if body
       body = clear_content(body)
-      doc = Nokogiri::HTML(body)
+      doc = Nokogiri.HTML5(body).xpath("//body/*")
       # Image parsing
       doc.search("img").each do |img|
         # Turning the image path absolute
@@ -116,7 +116,7 @@ class Crawler
       doc.search("p").each do |node|
         node.remove if node.inner_html.tap{|x| x.strip!}.blank?
       end
-      doc.fragment(doc.to_html).to_html
+      doc.to_html
     end
   end
 

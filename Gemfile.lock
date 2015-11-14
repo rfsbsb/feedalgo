@@ -235,6 +235,7 @@ DEPENDENCIES
   jquery-ui-rails
   mysql2
   nokogiri
+  nokogumbo
   omniauth-google-oauth2
   opml_saw!
   rails (= 3.2.21)
