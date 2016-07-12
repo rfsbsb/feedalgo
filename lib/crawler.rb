@@ -16,7 +16,7 @@ class Crawler
       begin
         processed_feed = Feedjira::Feed.fetch_and_parse(feed)
         persist(feed, processed_feed)
-      rescue Feedjira::FetchFailure => e
+      rescue Exception => e
         persist_error(feed, e)
       end
     end
