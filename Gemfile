@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '3.2.21'
+gem 'rails', '3.2.22.5'
 gem 'pg', '~> 0.18'
 gem 'devise'
 gem 'cancan'
