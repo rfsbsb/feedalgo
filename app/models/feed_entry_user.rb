@@ -6,13 +6,14 @@ class FeedEntryUser < ActiveRecord::Base
 
   self.per_page = 30
 
-  default_scope {includes(:feed_entry, :feed).order("feed_entries.created_at DESC")}
+  default_scope {includes(:feed_entry, :feed)}
   scope :unread, where('feed_entry_users.read = ? OR feed_entry_users.read IS NULL',false)
   scope :favorite, where('feed_entry_users.favorite = ? AND feed_entry_users.favorite IS NOT NULL',true)
   scope :read, where('feed_entry_users.read = ? OR feed_entry_users.read IS NOT NULL', true)
   scope :day_older, where('feed_entries.created_at <= ?', 1.day.ago.to_date )
   scope :week_older, where('feed_entries.created_at <= ?', 7.day.ago.to_date )
   scope :month_older, where('feed_entries.created_at <= ?', 30.day.ago.to_date )
+  scope :newest, order("feed_entries.created_at DESC")
 
   def toggle_read
     self.read = self.read ? 0 : 1

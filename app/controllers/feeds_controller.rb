@@ -4,7 +4,7 @@ class FeedsController < ApplicationController
     id = URI.unescape(params[:id])
     @feed = current_user.feeds.find_by_url(id)
     @feed_users = current_user.feed_users.find_by_feed_id(@feed)
-    @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.newest.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js
@@ -16,7 +16,7 @@ class FeedsController < ApplicationController
     id = URI.unescape(params[:id])
     @feed = current_user.feeds.find_by_url(id)
     @feed_users = current_user.feed_users.find_by_feed_id(@feed)
-    @entries = current_user.feed_entry_users.where(:feed_id => @feed).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.newest.where(:feed_id => @feed).paginate(:page => params[:page])
     respond_to do |format|
       format.js
     end
@@ -26,7 +26,7 @@ class FeedsController < ApplicationController
     id = URI.unescape(params[:id])
     @feed = current_user.feeds.find_by_url(id)
     @feed_users = current_user.feed_users.find_by_feed_id(@feed)
-    @entries = current_user.feed_entry_users.favorite.where(:feed_id => @feed).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.favorite.newest.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js {render :action => :list}
@@ -38,7 +38,7 @@ class FeedsController < ApplicationController
     id = URI.unescape(params[:id])
     @feed = current_user.feeds.find_by_url(id)
     @feed_users = current_user.feed_users.find_by_feed_id(@feed)
-    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feed).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.unread.newest.where(:feed_id => @feed).paginate(:page => params[:page])
     @feed_count = current_user.feed_entry_users.unread.where(:feed_id => @feed).count()
     respond_to do |format|
       format.js {render :action => :list}
@@ -48,7 +48,7 @@ class FeedsController < ApplicationController
 
   def all
     @feeds = current_user.feeds.all
-    @entries = current_user.feed_entry_users.where(:feed_id => @feeds).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.newest.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js
       format.html
@@ -57,7 +57,7 @@ class FeedsController < ApplicationController
 
   def all_paging
     @feeds = current_user.feeds.all
-    @entries = current_user.feed_entry_users.where(:feed_id => @feeds).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.newest.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js
       format.html
@@ -66,7 +66,7 @@ class FeedsController < ApplicationController
 
   def all_unread
     @feeds = current_user.feeds.all
-    @entries = current_user.feed_entry_users.unread.where(:feed_id => @feeds).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.unread.newest.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js {render :action => :all}
       format.html {render :action => :all}
@@ -75,7 +75,7 @@ class FeedsController < ApplicationController
 
   def all_favorite
     @feeds = current_user.feeds.all
-    @entries = current_user.feed_entry_users.favorite.where(:feed_id => @feeds).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.favorite.newest.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js {render :action => :favorite}
       format.html {render :action => :favorite}
@@ -84,7 +84,7 @@ class FeedsController < ApplicationController
 
   def all_favorite_paging
     @feeds = current_user.feeds.all
-    @entries = current_user.feed_entry_users.favorite.where(:feed_id => @feeds).paginate(:page => params[:page])
+    @entries = current_user.feed_entry_users.favorite.newest.where(:feed_id => @feeds).paginate(:page => params[:page])
     respond_to do |format|
       format.js
       format.html

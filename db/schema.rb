@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20150513205601) do
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
-    t.text     "body",       :limit => 4294967295
+    t.text     "body",       :limit => 2147483647
     t.text     "url"
     t.string   "author"
     t.datetime "created_at",                       :null => false
