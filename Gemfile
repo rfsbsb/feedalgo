@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 
-gem 'rails', '3.2.22.5'
-gem 'pg', '~> 0.18'
+gem 'rails', '~>4.0'
+gem 'pg'
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
@@ -17,18 +17,16 @@ gem 'activerecord-import'
 gem 'will_paginate', '~> 3.0'
 gem "omniauth-google-oauth2"
 gem 'opml_saw', :git => "git://github.com/feedbin/opml_saw.git", :branch => "master"
-gem 'curb', '~> 0.8.8'
+gem 'curb', '~> 0.9.7'
 gem 'test-unit'
 
-group :assets do
-  gem 'jquery-ui-rails'
-  gem 'sass-rails', '>= 3.2'
-  gem 'bootstrap-sass', '>= 3.1.0'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'compass-rails'
-  gem 'i18n-js'
-end
+gem 'jquery-ui-rails'
+gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '>= 3.1.0'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'compass-rails'
+gem 'i18n-js'
 
 group :development do
   gem 'rails-footnotes'
